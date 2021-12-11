@@ -1,0 +1,23 @@
+{
+  "name": "ranking",
+  "version": "0.0.1",
+  "description": "Generates a ranking based on inserted players and updates it based on the match results.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkner/CSC-3380-Ranking.git"
+  },
+  "author": "Tyler Oliver, Colin Cottrel, John Ner, Joshua Guillot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkner/CSC-3380-Ranking/issues"
+  },
+  "homepage": "https://github.com/jkner/CSC-3380-Ranking#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
