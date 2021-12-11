@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 fs = require('fs');
+//arrayMove = require('array-move');
+const alibarray = require('alib-array');
   
 // New app using express module
 const app = express();
@@ -15,26 +17,36 @@ app.get("/", function(req, res) {
   
 app.post("/", function(req, res) {
   var num1 = Number(req.body.num1);
-  var num2 = Number(req.body.num2);
+  var num2 = Number(req.body.num2); 
 
-  fs.readFile('./rankings/rankings.json', 'utf8', function (err,data) {
+  fs.readFile('./rankings/rankings.json', 'utf8', (err, array) => {
+
     if (err) {
-      return console.log(err);
-    }
-    console.log(data);
+        console.log(`Error reading file from disk: ${err}`);
+    } else {
 
-    let rankingJson = [1,2,3,4,5,6];  
+        // parse JSON string to JSON object
+        const databases = JSON.parse(array);     
 
-    //updates ranking based on the winner
-    updateRanking(rankingJson);
+        //{"array": [1,2,3,4,5,6]}    
 
-    writeToFile(rankingJson);
-
-    res.send("Current Leaderboard" + data);
-  });
-
+        // print all databases
+        console.log("array", databases.array);
+ 
+        var indexOfnum1 = databases.array.indexOf(num1);      
+        var indexOfnum2 = databases.array.indexOf(num2); 
     
-  
+       console.log("index of num 1",indexOfnum1);
+    
+        //updates ranking based on the winner
+        let updatedRanking = updateRanking(databases.array, indexOfnum1, indexOfnum2);
+        writeToFile(updatedRanking);
+    
+        res.send("Current Leaderboard" + updatedRanking);          
+    }  
+
+});
+   
 });
   
 app.listen(3000, function(){
@@ -42,7 +54,12 @@ app.listen(3000, function(){
 })
 
 function writeToFile(rankingArray){
-    fs.writeFile('./rankings/rankings.json', "[" + rankingArray + "]", function (err) {
+
+    let jsonStringify = JSON.stringify(rankingArray)
+
+    let rankingJson = JSON.stringify({ array : rankingArray });
+
+    fs.writeFile('./rankings/rankings.json', rankingJson, function (err) {
         if (err) throw err;
         console.log('Saved!');
       });
@@ -50,12 +67,15 @@ function writeToFile(rankingArray){
     return;
 }
 
-function updateRanking(rankingArray){
-    let updatedRankingArray;
+function updateRanking(data, fromIndex, toIndex){
+   // arr = Array.prototype.slice.call(arr);
 
-        
-    
-    return updatedRankingArray;
+  // var data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+   alibarray().move(data, fromIndex, toIndex);
+   
+   console.log("DATA",data);
+
+   return data;
 
 }
 

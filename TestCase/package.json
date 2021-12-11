@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jkner/CSC-3380-Ranking#readme",
   "dependencies": {
+    "alib-array": "^1.4.0",
     "express": "^4.17.1"
   }
 }
