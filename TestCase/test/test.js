@@ -4,13 +4,6 @@ var assert = require('assert');
 
 const functions = require("../helperFunctions/functions");
 
-describe('ArrayLengthCheck', function() {
-    it('Checks the length of the array', function() {    
-
-    var beverages = { tea: ['chai', 'matcha', 'oolong'] };
-    assert.equal(beverages.tea.length, 3);
-
-});});
 
 describe('Write To File Test', function() {
 
