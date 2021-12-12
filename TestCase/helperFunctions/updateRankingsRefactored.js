@@ -1,4 +1,3 @@
-// Authors: Tyler Oliver, John Ner, Colin Cottrell, Joshua Guillot
 const alibarray = require("alib-array");
 
 exports.loadFile = function(req, res, num1, num2) {

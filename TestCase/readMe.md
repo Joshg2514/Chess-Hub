@@ -1,3 +1,5 @@
+Authors: Tyler Oliver, John Ner, Colin Cottrell, Joshua Guillot
+
 To run the test for the code:
 
 # Make sure node and npm is installed
