@@ -1,6 +1,7 @@
 // Authors: Tyler Oliver, John Ner, Colin Cottrell, Joshua Guillot
 
 const functions = require("./functions.js");
+const fs = require("fs");
 
 exports.loadFile = function(req, res, num1, num2) {
     console.log(req.body);

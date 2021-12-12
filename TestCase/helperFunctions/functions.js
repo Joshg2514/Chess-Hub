@@ -1,5 +1,7 @@
 const alibarray = require("alib-array");
 
+const fs = require("fs");
+
 exports.writeToFile = function(rankingArray) {
     let rankingJson = JSON.stringify({ array: rankingArray });
   
