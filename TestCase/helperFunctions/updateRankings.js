@@ -1,5 +1,6 @@
 // Authors: Tyler Oliver, John Ner, Colin Cottrell, Joshua Guillot
-const alibarray = require("alib-array");
+
+const functions = require("./functions.js");
 
 exports.loadFile = function(req, res, num1, num2) {
     console.log(req.body);
@@ -27,8 +28,8 @@ exports.loadFile = function(req, res, num1, num2) {
   
           //updates ranking based on the winner
   
-          let higherNum = checkHigherIndexVal(indexOfnum1, indexOfnum2);
-          let lowerNum = checkLowerIndexVal(indexOfnum1, indexOfnum2);
+          let higherNum = functions.checkHigherIndexVal(indexOfnum1, indexOfnum2);
+          let lowerNum = functions.checkLowerIndexVal(indexOfnum1, indexOfnum2);
   
           console.log("lowerNum", lowerNum, "higher num ", higherNum);
   
@@ -44,21 +45,21 @@ exports.loadFile = function(req, res, num1, num2) {
             higherNum == indexOfnum1 &&
             req.body.hasOwnProperty("loss")
           ) {
-            let updatedRanking = updateRanking(
+            let updatedRanking = functions.updateRanking(
               databases.array,
               lowerNum,
               higherNum
             );
-            writeToFile(updatedRanking);
+            functions.writeToFile(updatedRanking);
             res.send("Current Leaderboard \n" + updatedRanking);
             
           } else if (higherNum == indexOfnum2 && req.body.hasOwnProperty("win")) {
-            let updatedRanking = updateRanking(
+            let updatedRanking = functions.updateRanking(
               databases.array,
               lowerNum,
               higherNum
             );
-            writeToFile(updatedRanking);
+            functions.writeToFile(updatedRanking);
   
             res.send("Current Leaderboard \n" + updatedRanking);
           } else if (
@@ -73,38 +74,4 @@ exports.loadFile = function(req, res, num1, num2) {
       }
     });
     return true;
-  }
-  
-  function writeToFile(rankingArray) {
-    let rankingJson = JSON.stringify({ array: rankingArray });
-  
-    fs.writeFile("./rankings/rankings.json", rankingJson, function (err) {
-      if (err) throw err;
-      console.log("Saved!");
-    });
-  
-    return;
-  }
-  
-  function updateRanking(data, fromIndex, toIndex) {
-    alibarray().move(data, fromIndex, toIndex);
-  
-    console.log("DATA", data);
-    return data;
-  }
-  
-  function checkHigherIndexVal(num1, num2) {
-    if (num1 < num2) {
-      return num1;
-    } else {
-      return num2;
-    }
-  }
-  
-  function checkLowerIndexVal(num1, num2) {
-    if (num1 > num2) {
-      return num1;
-    } else {
-      return num2;
-    }
-  }
+}
