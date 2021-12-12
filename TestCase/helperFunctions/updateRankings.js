@@ -20,7 +20,7 @@ exports.loadFile = function(req, res, num1, num2) {
         var indexOfnum1 = databases.array.indexOf(num1);
         var indexOfnum2 = databases.array.indexOf(num2);
   
-        if ((indexOfnum1 || indexOfnum2) == -1) {
+        if ((indexOfnum1 == -1) || (indexOfnum2 === -1)) {
           res.send(
             "Number inserted is not in the Ranking List: \n" + databases.array
           );
