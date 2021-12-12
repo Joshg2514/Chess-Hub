@@ -7,16 +7,14 @@ exports.writeToFile = function(rankingArray) {
   
     fs.writeFile("./rankings/rankings.json", rankingJson, function (err) {
       if (err) throw err;
-      console.log("Saved!");
+      console.log("UpdatedRankings");
     });
   
     return;
   }
   
 exports.updateRanking = function(data, fromIndex, toIndex) {
-    alibarray().move(data, fromIndex, toIndex);
-  
-    console.log("DATA", data);
+    alibarray().move(data, fromIndex, toIndex);    
     return data;
   }
   
