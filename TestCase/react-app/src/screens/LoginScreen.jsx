@@ -1,6 +1,6 @@
 import React from "react";
 import "./LoginScreen.css"
-import "./Global.css"
+import "../Global.css"
 import {Link} from "react-router-dom";
 
 export default function LoginScreen() {

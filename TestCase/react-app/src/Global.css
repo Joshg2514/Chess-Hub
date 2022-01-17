@@ -1,0 +1,14 @@
+/* GLOBAL STYLES */
+#main-container {
+    height: 100vh;
+    background-color: whitesmoke;
+}
+.side-padding {
+    flex: 1;
+    max-width: 128px;
+}
+@media screen and (max-width: 600px) {
+    .side-padding {
+        display: none;
+    }
+}

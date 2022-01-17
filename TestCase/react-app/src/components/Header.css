@@ -1,10 +1,55 @@
 #header-container {
-    background-color: black;
-    padding: 32px;
+    background-color: white;
+    display: flex;
     width: 100%;
+    align-items: center;
+    border-bottom: 1px solid gray;
+    /*background-image: url("../images/background.jpeg");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    /*background-position: top;*/
+}
+#header-content {
+    flex: 1;
+    display: flex;
+    padding: 16px;
+}
+#header-account-icon {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+}
+#header-account-icon:hover {
+    cursor: pointer;
+    opacity: 80%;
 }
 #header-main-text {
-    color: white;
+    color: black;
     font-weight: 600;
     font-size: 2em;
+    text-decoration: none;
+}
+#header-main-text:hover {
+    cursor: pointer;
+    opacity: 70%;
+}
+.header-dropdown {
+    position: absolute;
+    background-color: white;
+    top: 68px;
+    right: 0;
+    padding: 16px;
+}
+.header-dropdown-item {
+
+}
+@media screen and (min-width: 601px) {
+    #header-content {
+        min-width: 600px;
+    }
+}
+@media screen and (max-width: 600px) {
+    #header-content {
+        min-width: 280px;
+    }
 }
