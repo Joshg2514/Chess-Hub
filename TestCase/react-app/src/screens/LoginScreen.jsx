@@ -6,9 +6,9 @@ import {Link} from "react-router-dom";
 export default function LoginScreen() {
 
     return (
-        <div id={"main-container"} style={{display: 'flex'}}>
+        <div id={"login-main-container"}>
             <img id={"login-banner-image"} src={require("../images/background.jpeg")}/>
-            <div id={"login-container"}>
+            <div id={"login-input-container"}>
                 <h1 className={"login-main-header"}>classical ranking</h1>
                 <div style={{flex: 1, maxHeight: 48}}/>
                 <h1 className={"login-sub-header"}>Login</h1>

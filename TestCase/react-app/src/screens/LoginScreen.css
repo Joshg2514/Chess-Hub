@@ -33,7 +33,11 @@
 #login-banner-image {
     object-fit: cover;
 }
-#login-container {
+#login-main-container {
+    height: 100vh;
+    display: flex;
+}
+#login-input-container {
     flex: 1;
     display: flex;
     flex-direction: column;
