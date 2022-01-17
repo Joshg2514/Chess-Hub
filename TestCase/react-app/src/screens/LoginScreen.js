@@ -8,13 +8,13 @@ export default function LoginScreen() {
             <img id={"banner-image"} src={require("../images/background.jpeg")} />
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: 48}}>
                 <div style={{flex: 1, maxHeight: 48 }} />
-                <h1 style={{fontWeight: 600, fontSize: 20}}>Login</h1>
+                <h1 id={"main-header"}>Login</h1>
                 <div style={{height: 32}} />
                 <label className={"text-field-label-style"}>
                     Email
                     <br />
                     <div style={{height: 8}} />
-                    <input type={"email"} className={"text-field-style"} />
+                    <input type={"email"} name="email" className={"text-field-style"} />
                 </label>
                 <br />
                 <div style={{height: 8}} />
@@ -22,7 +22,7 @@ export default function LoginScreen() {
                     Password
                     <br />
                     <div style={{height: 8}} />
-                    <input type={"password"} className={"text-field-style"} />
+                    <input type={"password"} name="password" className={"text-field-style"} />
                 </label>
                 <div style={{height: 32}} />
                 <button>
