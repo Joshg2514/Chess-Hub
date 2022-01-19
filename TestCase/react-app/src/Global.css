@@ -5,6 +5,7 @@
 }
 .side-padding {
     flex: 1;
+    height: 100%;
     max-width: 128px;
 }
 @media screen and (max-width: 600px) {
