@@ -14,7 +14,7 @@ export default function LeaderboardWidget(props: { leaderboard: UserObj[], user?
             {props.user &&
                 <div id={"home-leaderboard-footer"}>
                     <div style={{flex: 1}}><span className={"home-leaderboard-number"}>{props.user.rank}</span></div>
-                    <div style={{flex: 10}}>You</div>
+                    <div style={{flex: 10, fontWeight: 500}}>You</div>
                 </div>}
         </>
     )

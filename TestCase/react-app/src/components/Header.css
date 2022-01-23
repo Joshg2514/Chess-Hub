@@ -3,7 +3,7 @@
     display: flex;
     width: 100%;
     align-items: center;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid gray; /* TODO: this border doesn't cover the entire screen width if the width is below ~315px */
     /*background-image: url("../images/background.jpeg");*/
     /*background-repeat: no-repeat;*/
     /*background-size: cover;*/
@@ -13,6 +13,7 @@
     flex: 1;
     display: flex;
     padding: 16px;
+    align-items: center;
 }
 #header-account-icon {
     width: 32px;
@@ -26,7 +27,6 @@
 #header-main-text {
     color: black;
     font-weight: 600;
-    font-size: 2em;
     text-decoration: none;
 }
 #header-main-text:hover {
@@ -49,9 +49,15 @@
     #header-content {
         min-width: 600px;
     }
+    #header-main-text {
+        font-size: 2em;
+    }
 }
 @media screen and (max-width: 600px) {
     #header-content {
         min-width: 280px;
+    }
+    #header-main-text {
+        font-size: 1em;
     }
 }
