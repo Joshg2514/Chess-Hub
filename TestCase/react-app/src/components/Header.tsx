@@ -17,8 +17,8 @@ export default function Header() {
                          onClick={() => setShowDropdown(prevState => !prevState)}/>
                     {showDropdown ?
                         <div className={"header-dropdown"}>
-                            <div className={"header-dropdown-item"}>Challenges</div>
-                            <div style={{height: 8}}/>
+                            {/*<div className={"header-dropdown-item"}>Challenges</div>*/}
+                            {/*<div style={{height: 8}}/>*/}
                             <div className={"header-dropdown-item"}>Logout</div>
                         </div>
                         : []}

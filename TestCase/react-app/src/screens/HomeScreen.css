@@ -13,19 +13,27 @@
     padding: 16px;
     background-color: whitesmoke;
 }
-#home-leaderboard-header {
+#home-widget-header {
     background-color: #2c1553;
     font-weight: 600;
     padding: 16px;
     color: white;
 }
-.home-leaderboard-item {
+.home-widget-item {
     padding: 16px;
     display: flex;
+    align-items: center;
 }
 .home-leaderboard-number {
-    font-weight: 700;
+    font-weight: 600;
     margin-right: 8px;
+}
+.home-challenges-button {
+    background-color: limegreen;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 #home-leaderboard-footer{
     display: flex;
