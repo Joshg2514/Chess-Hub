@@ -2,7 +2,7 @@ import React from "react";
 import "../Global.css"
 import "./HomeScreen.css"
 import Header from "../components/Header"
-import Leaderboard from "../components/Leaderboard";
+import LeaderboardWidget from "../components/LeaderboardWidget";
 
 export default function HomeScreen() {
 
@@ -16,7 +16,7 @@ export default function HomeScreen() {
                 <div id={"home-columns-container"}>
                     <div className={"home-column"}>
                         <div className={"home-column-item"}>
-                            <Leaderboard leaderboard={dummyLeaderboard.slice(0, 10)} />
+                            <LeaderboardWidget leaderboard={dummyLeaderboard.slice(0, 10)} user={{name: "Bobby", rank: 14}}/>
                         </div>
                     </div>
                     <div style={{width: 32, height: 16}}/>

@@ -39,9 +39,11 @@
     top: 68px;
     right: 0;
     padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px 0px gray;
 }
 .header-dropdown-item {
-
+    cursor: pointer;
 }
 @media screen and (min-width: 601px) {
     #header-content {
