@@ -14,8 +14,7 @@ function App() {
           <Route path="/update" element={<UpdateMatchScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/signup" element={<SignUpScreen />} />
-          <Route path="/discordLogin" element={<DiscordLogin />} />
-          <Route path="/discordCallback" element={<DiscordCallback />} />
+          <Route path="/discordLogin" element={<DiscordLogin />} />         
       </Routes>
   );
 }
