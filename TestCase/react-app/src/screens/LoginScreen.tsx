@@ -28,7 +28,7 @@ export default function LoginScreen() {
                     <input type={"password"} name="password" className={"login-text-field-style"}/>
                 </label>
                 <div style={{height: 32}}/>
-                <Link id={"login-button"} to="/">
+                <Link id={"login-button"} to="/discordLogin">
                     Login
                 </Link>
                 <div style={{height: 32}}/>

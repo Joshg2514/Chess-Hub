@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
+import DiscordLogin from "./screens/DiscordLogin";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
           <Route path="/update" element={<UpdateMatchScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/signup" element={<SignUpScreen />} />
+          <Route path="/discordLogin" element={<DiscordLogin />} />
+          <Route path="/discordCallback" element={<DiscordCallback />} />
       </Routes>
   );
 }
