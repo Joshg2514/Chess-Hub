@@ -27,6 +27,23 @@
     text-align: center;
     text-decoration: none;
 }
+#discord-login-button {
+    align-self: start;
+    padding: 16px;
+    font-weight: 700;
+    background-color: #5865F2;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+#discord-logo {
+    height: 24px;
+    margin-right: 16px;
+}
 #login-button:hover {
     cursor: pointer;
 }
