@@ -7,9 +7,12 @@ require('dotenv').config();
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(express.static("public"));
 
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+app.get("/test", (req, res) => {
+  res.json({ message: "Hello from server!" });
 });
+
+// Routes
+app.use('/api/discord', require('../api/discord'));
 
 app.post("/api/update", function (req, res) {
   var num1 = Number(req.body.num1);
@@ -26,13 +29,14 @@ app.post("/api/update", function (req, res) {
   }
 });
 
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+});
+
 // start express server on port 5000
 app.listen(3000, () => {
   console.log("server started on port 3000");
 });
-
-// Routes
-app.use('/api/discord', require('../api/discord'));
 
 app.use((err, req, res, next) => {
   switch (err.message) {
@@ -47,8 +51,4 @@ app.use((err, req, res, next) => {
         error: err.message,
       });
   }
-});
-
-app.get("/test", (req, res) => {
-  res.json({ message: "Hello from server!" });
 });
