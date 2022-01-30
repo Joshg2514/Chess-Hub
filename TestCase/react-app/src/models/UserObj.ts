@@ -1,6 +1,7 @@
 export interface UserObj {
     name: string,
-    rank?: number
+    rank?: number,
+    isAdmin?: boolean,
 }
 
 export const equals = (user1?: UserObj, user2?: UserObj) : boolean => {

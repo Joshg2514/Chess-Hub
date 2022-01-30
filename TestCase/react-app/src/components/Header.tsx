@@ -3,6 +3,7 @@ import "./Header.css"
 import "../Global.css"
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import {dummyLoggedInUser} from "../models/DummyData";
 
 export default function Header() {
 
@@ -14,17 +15,20 @@ export default function Header() {
             <div id={"header-content"}>
                 <Link to={"/"} style={{textDecoration: 'none'}}><h4 id={"header-main-text"}>classical ranking</h4></Link>
                 <div style={{flex: 1}}/>
+                <span style={{display: 'flex', alignItems: 'center'}} onClick={() => setShowDropdown(prevState => !prevState)}>
+                <h4>{dummyLoggedInUser.name}</h4>
+                <div style={{width: 8}} />
                 <div style={{position: "relative"}}>
-                    <img src={require("../images/account.png")} id={"header-account-icon"}
-                         onClick={() => setShowDropdown(prevState => !prevState)}/>
+                    <img src={require("../images/account.png")} id={"header-account-icon"}/>
                     {showDropdown ?
                         <div className={"header-dropdown"}>
-                            {/*<div className={"header-dropdown-item"}>Challenges</div>*/}
-                            {/*<div style={{height: 8}}/>*/}
-                            <div className={"header-dropdown-item"}>Logout</div>
+                            {dummyLoggedInUser.isAdmin && (<div><Link to={"/admin"} className={"header-dropdown-item"}>Admin</Link></div>)}
+                            <div style={{height: 8}}/>
+                            <div><Link to={"/login"} className={"header-dropdown-item"}>Logout</Link></div>
                         </div>
                         : []}
                 </div>
+                </span>
             </div>
             <div className={"side-padding"}/>
         </div>
