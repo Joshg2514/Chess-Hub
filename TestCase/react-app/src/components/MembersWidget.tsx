@@ -7,9 +7,9 @@ export default function MembersWidget(props: { members: UserObj[]}) {
 
     return (
         <>
-            <div id={"widget-header"}>
+            <h4 id={"widget-header"}>
                 Members
-            </div>
+            </h4>
             {members.length > 0 ?
                 (members.map((user, index) => (
                         <div className={"widget-item"} key={index}>

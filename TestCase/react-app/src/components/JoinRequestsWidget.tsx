@@ -7,9 +7,9 @@ export default function JoinRequestsWidget(props: { requests: UserObj[]}) {
 
     return (
         <>
-            <div id={"widget-header"}>
+            <h4 id={"widget-header"}>
                 Join Requests
-            </div>
+            </h4>
             {requests.length > 0 ?
                 (requests.map((user, index) => (
                     <div className={"widget-item"} key={index}>
