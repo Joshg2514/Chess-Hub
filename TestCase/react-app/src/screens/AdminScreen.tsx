@@ -1,12 +1,8 @@
 import Header from "../components/Header";
-import LeaderboardWidget from "../components/LeaderboardWidget";
-import ChallengesWidget from "../components/ChallengesWidget";
-import ScheduledGamesWidget from "../components/ScheduledGamesWidget";
-import GameOfTheDay from "../components/GameOfTheDay";
 import React from "react";
 import JoinRequestsWidget from "../components/JoinRequestsWidget";
-
-const dummyJoinRequests = [{name: "Gary"}, {name: "Hikaru"}]
+import {dummyJoinRequests, dummyUsers} from "../models/DummyData";
+import MembersWidget from "../components/MembersWidget";
 
 export default function AdminScreen() {
     return (
@@ -23,6 +19,7 @@ export default function AdminScreen() {
                     <div style={{width: 32, height: 16}}/>
                     <div className={"column"}>
                         <div className={"column-item"}>
+                            <MembersWidget members={dummyUsers} />
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,8 @@
-interface UserObj {
+export interface UserObj {
     name: string,
     rank?: number
+}
+
+export const equals = (user1?: UserObj, user2?: UserObj) : boolean => {
+    return !!user1 && !!user2 && user1.name === user2.name && user1.rank === user2.rank
 }

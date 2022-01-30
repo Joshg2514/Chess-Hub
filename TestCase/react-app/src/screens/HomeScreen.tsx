@@ -6,17 +6,13 @@ import LeaderboardWidget from "../components/LeaderboardWidget";
 import ChallengesWidget from "../components/ChallengesWidget";
 import ScheduledGamesWidget from "../components/ScheduledGamesWidget";
 import GameOfTheDay from "../components/GameOfTheDay";
+import {dummyChallenges, dummyLeaderboard, dummyLoggedInUser, dummyScheduledGames} from "../models/DummyData"
 
 const MAX_CHALLENGES = 5;
 const MAX_LEADERBOARD_SIZE = 10;
 const MAX_SCHEDULED_GAMES = 5;
 
 export default function HomeScreen() {
-
-    const dummyLeaderboard : UserObj[] = Array(10).fill("Magnus").map((name: string, index: number) => ({name: name, rank: index + 1}))
-    const dummyChallenges: UserObj[] = [{name: "Ian", rank: 5}, {name: "Fabiano", rank: 4}]
-    const dummyScheduledGames: ScheduledGameObj[] = [{player1: {name: "Alireza", rank: 2}, player2: {name: 'Magnus', rank: 1}}]
-    const dummyUser: UserObj = {name: "Bobby", rank: 14}
 
     return (
         <div id={"main-container"}>
@@ -26,7 +22,7 @@ export default function HomeScreen() {
                 <div id={"columns-container"}>
                     <div className={"column"}>
                         <div className={"column-item"}>
-                            <LeaderboardWidget leaderboard={dummyLeaderboard.slice(0, MAX_LEADERBOARD_SIZE)} user={dummyUser}/>
+                            <LeaderboardWidget leaderboard={dummyLeaderboard.slice(0, MAX_LEADERBOARD_SIZE)} user={dummyLoggedInUser}/>
                         </div>
                     </div>
                     <div style={{width: 32, height: 16}}/>
@@ -36,7 +32,7 @@ export default function HomeScreen() {
                         </div>
                         <div style={{height: 16}} />
                         <div className={"column-item"}>
-                            <ScheduledGamesWidget user={dummyUser} scheduledGames={dummyScheduledGames.slice(0,MAX_SCHEDULED_GAMES)} />
+                            <ScheduledGamesWidget user={dummyLoggedInUser} scheduledGames={dummyScheduledGames.slice(0,MAX_SCHEDULED_GAMES)} />
                         </div>
                         <div style={{height: 16}} />
                         <div className={"column-item"} style={{borderRadius: "8px 8px 0px 0px"}}>

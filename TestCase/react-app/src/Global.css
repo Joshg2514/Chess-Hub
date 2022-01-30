@@ -30,6 +30,12 @@
     display: flex;
     align-items: center;
 }
+.widget-item-highlight{
+    display: flex;
+    padding: 16px;
+    background-color: #2c1553;
+    color: white;
+}
 .side-padding {
     flex: 1;
     height: 100%;

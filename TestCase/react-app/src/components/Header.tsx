@@ -5,7 +5,9 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 
 export default function Header() {
+
     const [showDropdown, setShowDropdown] = useState(false)
+
     return (
         <div id={"header-container"}>
             <div className={"side-padding"}/>
