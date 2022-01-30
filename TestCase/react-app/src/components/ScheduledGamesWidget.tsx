@@ -1,22 +1,22 @@
 import React from "react";
 
-export default function ScheduledGamesWidget(props: { user: UserObj, challengers: UserObj[] }) {
+export default function ScheduledGamesWidget(props: { user: UserObj, scheduledGames: ScheduledGameObj[] }) {
     return (
         <>
-            <div id={"home-widget-header"}>
+            <h4 id={"widget-header"}>
                 Scheduled Games
-            </div>
+            </h4>
             {
-                props.challengers.length > 0 ?
-                    (props.challengers.map((challenger, index) =>
-                            <div className={"home-widget-item"} key={index}>
-                                You&nbsp;<span style={{fontWeight: 600}}>({props.user.rank})</span>&nbsp;
-                                <span style={{fontWeight: 600}}>VS</span>&nbsp;
-                                {challenger.name}&nbsp;<span style={{fontWeight: 600}}>({challenger.rank})</span>
+                props.scheduledGames.length > 0 ?
+                    (props.scheduledGames.map((scheduleGame, index) =>
+                            <div className={"widget-item"} key={index}>
+                                {scheduleGame.player1.name}&nbsp;<span style={{fontWeight: 600}}>({scheduleGame.player1.rank || '?'})</span>
+                                &nbsp;<span style={{fontWeight: 600}}>VS</span>&nbsp;
+                                {scheduleGame.player2.name}&nbsp;<span style={{fontWeight: 600}}>({scheduleGame.player2.rank || '?'})</span>
                             </div>)
                     )
                     : (
-                        <div className={"home-widget-item"}>No games scheduled</div>
+                        <div className={"widget-item"}>No games scheduled</div>
                     )
             }
         </>

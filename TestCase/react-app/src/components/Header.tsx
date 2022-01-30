@@ -10,7 +10,7 @@ export default function Header() {
         <div id={"header-container"}>
             <div className={"side-padding"}/>
             <div id={"header-content"}>
-                <Link to={"/"} id={"header-main-text"}>classical ranking</Link>
+                <Link to={"/"} style={{textDecoration: 'none'}}><h4 id={"header-main-text"}>classical ranking</h4></Link>
                 <div style={{flex: 1}}/>
                 <div style={{position: "relative"}}>
                     <img src={require("../images/account.png")} id={"header-account-icon"}

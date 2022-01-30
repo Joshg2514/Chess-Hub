@@ -4,10 +4,52 @@
     width: 100vw;
     background-color: whitesmoke;
 }
+.column {
+    display: flex;
+    flex-direction: column;
+}
+.column-item {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+#columns-container {
+    flex: 1;
+    display: flex;
+    padding: 16px;
+    background-color: whitesmoke;
+}
+#widget-header {
+    background-color: #2c1553;
+    font-weight: 600;
+    padding: 16px;
+    color: white;
+}
+.widget-item {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+}
 .side-padding {
     flex: 1;
     height: 100%;
     max-width: 128px;
+}
+.accept-button {
+    background-color: limegreen;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.reject-button {
+    background-color: red;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
 }
 @media screen and (max-width: 600px) {
     .side-padding {

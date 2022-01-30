@@ -3,11 +3,11 @@ import React from "react";
 export default function LeaderboardWidget(props: { leaderboard: UserObj[], user?: UserObj }) {
     return (
         <>
-            <div id={"home-widget-header"}>
+            <h4 id={"widget-header"}>
                 Leaderboard
-            </div>
+            </h4>
             {props.leaderboard.map((user, index) => (
-                <div className={"home-widget-item"} key={index}>
+                <div className={"widget-item"} key={index}>
                     <div style={{flex: 1}}><span className={"home-leaderboard-number"}>{index + 1}</span></div>
                     <div style={{flex: 10}}>{user.name}</div>
                 </div>))}
