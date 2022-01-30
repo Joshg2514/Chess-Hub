@@ -25,6 +25,9 @@
     padding: 16px;
     color: white;
 }
+.widget-header-link {
+    cursor: pointer;
+}
 .widget-item {
     padding: 16px;
     display: flex;
