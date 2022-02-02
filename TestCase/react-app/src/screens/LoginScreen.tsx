@@ -1,7 +1,7 @@
 import React from "react";
 import "./LoginScreen.css"
 import "../Global.css"
-import {Link} from "react-router-dom";
+import Logo from "../components/Logo";
 
 export default function LoginScreen() {
 
@@ -10,7 +10,7 @@ export default function LoginScreen() {
             <img id={"login-banner-image"} src={require("../images/background.jpeg")}/>
             <div id={"login-input-container"}>
                 <div style={{flex: 1}} />
-                <h1 className={"login-main-header"}>classical ranking</h1>
+                <h1 className={"login-main-header"}><Logo /></h1>
                 <div style={{height: 24}} />
                 <a id={"discord-login-button"} href="/api/discord/login">
                     <img id={"discord-logo"} src={require("../images/discord.png")} />

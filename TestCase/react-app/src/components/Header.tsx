@@ -4,6 +4,7 @@ import "../Global.css"
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {dummyLoggedInUser} from "../models/DummyData";
+import Logo from "./Logo";
 
 export default function Header() {
 
@@ -13,7 +14,7 @@ export default function Header() {
         <div id={"header-container"}>
             <div className={"side-padding"}/>
             <div id={"header-content"}>
-                <Link to={"/"} style={{textDecoration: 'none'}}><h4 id={"header-main-text"}>classical ranking</h4></Link>
+                <Link to={"/"} style={{textDecoration: 'none'}}><Logo /></Link>
                 <div style={{flex: 1}}/>
                 <span style={{display: 'flex', alignItems: 'center'}} onClick={() => setShowDropdown(prevState => !prevState)}>
                 <h4>{dummyLoggedInUser.name}</h4>
