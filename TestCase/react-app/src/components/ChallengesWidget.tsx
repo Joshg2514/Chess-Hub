@@ -7,9 +7,13 @@ export default function ChallengesWidget(props: { challengers: UserObj[] }) {
 
     return (
         <>
-            <h4 id={"widget-header"}>
-                Challenges
-            </h4>
+            <div id={"widget-header"} style={{display: 'flex', alignItems: 'center'}}>
+                <h4>
+                    Challenges
+                </h4>
+                <div style={{flex: 1}} />
+                <span className={"widget-header-link"}>{"More \u203A\u203A"}</span>
+            </div>
             {
                 challengers.length > 0 ?
                     (challengers.map((challenger, index) =>
@@ -23,7 +27,7 @@ export default function ChallengesWidget(props: { challengers: UserObj[] }) {
                     <div className={"widget-item"}>No challenges found</div>
                 )
             }
-            <div className={"home-challenges-send-button"} style={{margin: 16}}>Send A Challenge</div>
+            <div className={"primary-button"} style={{margin: 16, padding: 16}}>Send A Challenge</div>
         </>
     )
 }

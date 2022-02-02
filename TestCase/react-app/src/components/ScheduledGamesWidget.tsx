@@ -1,6 +1,6 @@
 import React from "react";
 import {ScheduledGameObj} from "../models/ScheduledGameObj";
-import {UserObj} from "../models/UserObj";
+import {equals, UserObj} from "../models/UserObj";
 
 export default function ScheduledGamesWidget(props: { user: UserObj, scheduledGames: ScheduledGameObj[] }) {
 
@@ -8,16 +8,20 @@ export default function ScheduledGamesWidget(props: { user: UserObj, scheduledGa
 
     return (
         <>
-            <h4 id={"widget-header"}>
-                Scheduled Games
-            </h4>
+            <div id={"widget-header"} style={{display: 'flex', alignItems: 'center'}}>
+                <h4>
+                    Scheduled Games
+                </h4>
+                <div style={{flex: 1}} />
+                <span className={"widget-header-link"}>{"More \u203A\u203A"}</span>
+            </div>
             {
                 scheduledGames.length > 0 ?
-                    (scheduledGames.map((scheduleGame, index) =>
-                            <div className={"widget-item"} key={index}>
-                                {scheduleGame.player1.name}&nbsp;<span style={{fontWeight: 600}}>({scheduleGame.player1.rank || '?'})</span>
+                    (scheduledGames.map((scheduledGame, index) =>
+                            <div className={equals(user, scheduledGame.player1) || equals(user, scheduledGame.player2) ? "widget-item-highlight" : "widget-item"} key={index}>
+                                {scheduledGame.player1.name}&nbsp;<span style={{fontWeight: 600}}>({scheduledGame.player1.rank || '?'})</span>
                                 &nbsp;<span style={{fontWeight: 600}}>VS</span>&nbsp;
-                                {scheduleGame.player2.name}&nbsp;<span style={{fontWeight: 600}}>({scheduleGame.player2.rank || '?'})</span>
+                                {scheduledGame.player2.name}&nbsp;<span style={{fontWeight: 600}}>({scheduledGame.player2.rank || '?'})</span>
                             </div>)
                     )
                     : (

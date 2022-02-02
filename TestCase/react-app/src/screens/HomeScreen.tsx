@@ -6,11 +6,18 @@ import LeaderboardWidget from "../components/LeaderboardWidget";
 import ChallengesWidget from "../components/ChallengesWidget";
 import ScheduledGamesWidget from "../components/ScheduledGamesWidget";
 import GameOfTheDay from "../components/GameOfTheDay";
-import {dummyChallenges, dummyLeaderboard, dummyLoggedInUser, dummyScheduledGames} from "../models/DummyData"
+import {
+    dummyChallengers,
+    dummyLeaderboard,
+    dummyLoggedInUser,
+    dummyOpponents,
+    dummyScheduledGames
+} from "../models/DummyData"
+import YourGamesWidget from "../components/YourGamesWidget";
 
 const MAX_CHALLENGES = 5;
 const MAX_LEADERBOARD_SIZE = 10;
-const MAX_SCHEDULED_GAMES = 5;
+const MAX_GAMES = 5;
 
 export default function HomeScreen() {
 
@@ -28,11 +35,11 @@ export default function HomeScreen() {
                     <div style={{width: 32, height: 16}}/>
                     <div className={"column"}>
                         <div className={"column-item"}>
-                            <ChallengesWidget challengers={dummyChallenges.slice(0,MAX_CHALLENGES)} />
+                            <ChallengesWidget challengers={dummyChallengers.slice(0,MAX_CHALLENGES)} />
                         </div>
                         <div style={{height: 16}} />
                         <div className={"column-item"}>
-                            <ScheduledGamesWidget user={dummyLoggedInUser} scheduledGames={dummyScheduledGames.slice(0,MAX_SCHEDULED_GAMES)} />
+                            <YourGamesWidget opponents={dummyOpponents.slice(0,MAX_GAMES)} />
                         </div>
                         <div style={{height: 16}} />
                         <div className={"column-item"} style={{borderRadius: "8px 8px 0px 0px"}}>
