@@ -22,7 +22,7 @@ export default function YourGamesWidget(props: { opponents: UserObj[] }) {
                                 <span style={{fontWeight: 600}}>VS</span>&nbsp;
                                 {opponent.name}&nbsp;<span style={{fontWeight: 600}}>({opponent.rank || '?'})</span>
                                 <div style={{flex: 1}} />
-                                <div className={"accept-button"}>Submit</div>
+                                <div className={"primary-button"}>Submit</div>
                             </div>)
                     )
                     : (

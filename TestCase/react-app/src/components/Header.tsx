@@ -20,7 +20,7 @@ export default function Header() {
                 <h4>{dummyLoggedInUser.name}</h4>
                 <div style={{width: 8}} />
                 <div style={{position: "relative"}}>
-                    <img src={dummyLoggedInUser.imageUrl || require("../images/account.png")} id={"header-account-icon"}/>
+                    <img src={dummyLoggedInUser.imageUrl || require("../images/account.png")} id={"account-icon"}/>
                     {showDropdown ?
                         <div className={"header-dropdown"}>
                             {dummyLoggedInUser.isAdmin && (<div><Link to={"/admin"} className={"header-dropdown-item"}>Admin</Link></div>)}

@@ -1,3 +1,9 @@
+/* COLORS */
+:root {
+    --primary:#2c1553;
+    --secondary:#ffdf3d;
+}
+
 /* GLOBAL STYLES */
 #main-container {
     height: 100vh;
@@ -20,7 +26,7 @@
     background-color: whitesmoke;
 }
 #widget-header {
-    background-color: #2c1553;
+    background-color: var(--primary);
     font-weight: 600;
     padding: 16px;
     color: white;
@@ -36,7 +42,7 @@
 .widget-item-highlight{
     display: flex;
     padding: 16px;
-    background-color: #2c1553;
+    background-color: var(--primary);
     color: white;
 }
 .side-padding {
@@ -45,7 +51,7 @@
     max-width: 128px;
 }
 .accept-button {
-    background-color: limegreen;
+    background-color: green;
     color: white;
     padding: 8px;
     border-radius: 8px;
@@ -53,7 +59,7 @@
     font-weight: 600;
 }
 .reject-button {
-    background-color: red;
+    background-color: orangered;
     color: white;
     padding: 8px;
     border-radius: 8px;
@@ -61,13 +67,31 @@
     font-weight: 600;
 }
 .primary-button {
-    background-color: #2c1553;
+    background-color: var(--primary);
     color: white;
     padding: 8px;
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
+}
+.secondary-button {
+    background-color: var(--secondary);
+    color: var(--primary);
+    padding: 8px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+#account-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+}
+#account-icon:hover {
+    cursor: pointer;
+    opacity: 80%;
 }
 @media screen and (max-width: 600px) {
     .side-padding {

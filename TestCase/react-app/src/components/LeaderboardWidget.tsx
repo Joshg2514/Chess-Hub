@@ -1,5 +1,6 @@
 import React from "react";
 import {UserObj, equals} from "../models/UserObj";
+import {dummyLoggedInUser} from "../models/DummyData";
 
 export default function LeaderboardWidget(props: { leaderboard: UserObj[], user?: UserObj }) {
 
@@ -17,6 +18,8 @@ export default function LeaderboardWidget(props: { leaderboard: UserObj[], user?
             {leaderboard.map((player, index) => (
                 <div className={equals(user, player) ? "widget-item-highlight" : "widget-item"} key={index}>
                     <div style={{flex: 1}}><span className={"home-leaderboard-number"}>{index + 1}</span></div>
+                    <img src={player.imageUrl || require("../images/account.png")} id={"account-icon"} style={{width: 24, height: 24}}/>
+                    <div style={{width: 16}} />
                     <div style={{flex: 10}}>{player.name}</div>
                 </div>))}
             {(user && !leaderboard.some((player) => equals(user, player))) &&
