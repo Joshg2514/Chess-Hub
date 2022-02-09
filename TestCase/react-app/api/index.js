@@ -3,6 +3,45 @@ const express = require("express");
 const app = express(); // create express app
 require('dotenv').config();
 
+const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+
+//Initialize Firebase
+var admin = require("firebase-admin");
+var serviceAccount = require("../chesshub-2c7a9-firebase-adminsdk-tj59a-2ea82b66e7.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+updateDB();
+
+async function updateDB(){
+
+  const db = getFirestore();
+
+  const docRef = db.collection('users').doc('alovelace');
+  await docRef.set({
+    first: 'Ada',
+    last: 'Lovelace',
+    born: 1816
+  });
+
+  const aTuringRef = db.collection('users').doc('aturing');
+  await aTuringRef.set({
+    'first': 'Alan',
+    'middle': 'Mathison',
+    'last': 'Turing',
+    'born': 1912
+  });
+
+  const snapshot = await db.collection('users').get();
+  snapshot.forEach((doc) => {
+    console.log(doc.id, '=>', doc.data());
+  });
+
+}
+
+
+
 // add middlewares
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(express.static("public"));
