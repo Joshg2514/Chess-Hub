@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start-client": "react-scripts start",
-    "start": "npm run build && (cd server && node index.js)",
+    "start": "npm run build && (cd api && node index.js)",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -1,5 +1,5 @@
 const express = require('express');
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/./../.env' });
 
 const fetch = require('node-fetch');
 const btoa = require('btoa');
@@ -14,7 +14,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const redirect = 'http://localhost:3000/api/discord/callback';
 
 router.get('/login', (req, res) => {
-   res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=${CLIENT_ID}&scope=identify&response_type=code&redirect_uri=${redirect}`);
+  res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=${CLIENT_ID}&scope=identify&response_type=code&redirect_uri=${redirect}`);
 });
 
 router.get('/callback', catchAsync(async (req, res) => {
@@ -30,13 +30,13 @@ router.get('/callback', catchAsync(async (req, res) => {
   params.append('redirect_uri', redirect);
 
   const response = await fetch(`https://discord.com/api/oauth2/token`,
-  {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${creds}`,
-    },
-    body: params
-  });
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${creds}`,
+      },
+      body: params
+    });
   const json = await response.json();
   res.redirect(`/?token=${json.access_token}`);
 }));
