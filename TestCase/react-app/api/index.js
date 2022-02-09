@@ -12,33 +12,36 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-updateDB();
+//updates DB: 
 
-async function updateDB(){
 
-  const db = getFirestore();
+// updateDB();
 
-  const docRef = db.collection('users').doc('alovelace');
-  await docRef.set({
-    first: 'Ada',
-    last: 'Lovelace',
-    born: 1816
-  });
+// async function updateDB(){
 
-  const aTuringRef = db.collection('users').doc('aturing');
-  await aTuringRef.set({
-    'first': 'Alan',
-    'middle': 'Mathison',
-    'last': 'Turing',
-    'born': 1912
-  });
+//   const db = getFirestore();
 
-  const snapshot = await db.collection('users').get();
-  snapshot.forEach((doc) => {
-    console.log(doc.id, '=>', doc.data());
-  });
+//   const docRef = db.collection('users').doc('alovelace');
+//   await docRef.set({
+//     first: 'Ada',
+//     last: 'Lovelace',
+//     born: 1816
+//   });
 
-}
+//   const aTuringRef = db.collection('users').doc('aturing');
+//   await aTuringRef.set({
+//     'first': 'Alan',
+//     'middle': 'Mathison',
+//     'last': 'Turing',
+//     'born': 1912
+//   });
+
+//   const snapshot = await db.collection('users').get();
+//   snapshot.forEach((doc) => {
+//     console.log(doc.id, '=>', doc.data());
+//   });
+
+// }
 
 
 
