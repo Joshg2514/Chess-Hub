@@ -17,36 +17,46 @@ function App() {
   const url = window.location.href
 
   useEffect(() => {
-    // if user object hasn't been initialized and user isn't on login page
-    if (!user && !url.includes('/login')) {
-      const params = new URL(url).searchParams
-      // try to get id from url or localStorage
-      let id: string | null = params.get('id')
-      if (id) {
-        window.localStorage.setItem('id', id)
+
+    /*
+
+    if user state is undefined and user is not in login screen
+      if user has stored object
+        retrieve that object
+      else if user has id in url
+        retrieve id
+        fetch user object
+        store user object
+      else 
+        redirect to login
+
+    */
+
+    if (!user && !url.includes('login')) {
+      const storedUserString = window.localStorage.getItem('user')
+      if (storedUserString) {
+        setUser(JSON.parse(storedUserString))
       } else {
-        id = window.localStorage.getItem('id')
-      }
-      // if id successfully retrieved
-      if (id) {
-        // fetch user object
-        fetch(`/api/discord/user/${id}`).then(async (res) => {
-          if (res.status === 200) {
-            const json = await res.json()
-            console.log(json)
-            return json
-          } else {
-            throw 'Error retrieving user info'
-          }
-        }).then(json => {
-          console.log(json)
-          setUser({
-            name: json.name
-          })
-        }).catch(err => console.log(err))
-      } else {
-        // redirect to login
-        navigate('/login')
+        const params = new URL(url).searchParams
+        let id: string | null = params.get('id')
+        if (id) {
+          fetch(`/api/discord/user/${id}`).then(async (res) => {
+            if (res.status === 200) {
+              const json = await res.json()
+              console.log(json)
+              return json
+            } else {
+              throw 'Error retrieving user info'
+            }
+          }).then(json => {
+            window.localStorage.setItem('user', JSON.stringify(json))
+            setUser({
+              name: json.name
+            })
+          }).catch(err => console.log(err))
+        } else {
+          navigate('/login')
+        }
       }
     }
   }, [url, user])
