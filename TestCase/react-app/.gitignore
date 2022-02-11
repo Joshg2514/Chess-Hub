@@ -18,9 +18,8 @@
 .env.test.local
 .env.production.local
 /api/serviceAccountKey.json
-/api/discord.js
-/api/firestore.js
-/api/index.js
+/api/*.js
+/api/models/*.js
 
 npm-debug.log*
 yarn-debug.log*

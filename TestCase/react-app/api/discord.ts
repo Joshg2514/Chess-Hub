@@ -1,9 +1,9 @@
-import { addUser } from "./firestore";
-
 export { }
+import { addUserToDB, getUserFromDB } from "./firestore";
 const express = require('express');
 const fetch = require('node-fetch')
 const { URLSearchParams } = require("url")
+import { TokenObj } from "./models/TokenObj"
 require('dotenv').config({ path: __dirname + '/./../.env' });
 
 const { catchAsync } = require('../utils');
@@ -15,17 +15,18 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 const redirect = 'http://localhost:3000/api/discord/callback';
 
-var accessToken: string | undefined
-var refreshToken: string | undefined
-var tokenExpiration: number | undefined
+// var accessToken: string | undefined
+// var refreshToken: string | undefined
+// var tokenExpiration: number | undefined
 
 // get a new discord accessToken using the refreshToken
-const refresh = async () => {
+const refresh = async (refreshToken: string): Promise<TokenObj> => {
+  console.log("refreshing token...")
   const params = new URLSearchParams();
   params.append('client_id', CLIENT_ID!!)
   params.append('client_secret', CLIENT_SECRET!!)
   params.append('grant_type', 'refresh_token');
-  params.append('refresh_token', refreshToken!!);
+  params.append('refresh_token', refreshToken);
 
   const response = await fetch(`https://discord.com/api/oauth2/token`,
     {
@@ -33,35 +34,61 @@ const refresh = async () => {
       body: params
     });
   const json = await response.json()
-  accessToken = json.access_token
+  const accessToken: string = json.access_token
   refreshToken = json.refresh_token
-  tokenExpiration = Date.now()// + json.expires_in
+  const tokenExpiration: number = Date.now() + json.expires_in
+  const token: TokenObj | undefined = (accessToken && refreshToken && tokenExpiration) ? { accessToken, refreshToken, tokenExpiration } : undefined
+
+  return new Promise((resolve, reject) => {
+    if (token) {
+      resolve(token)
+    } else {
+      reject("Error refreshing token")
+    }
+  });
+
 }
 
 // make sure the current accessToken is not expired
-const validate = async () => {
-  if (tokenExpiration) {
-    if (tokenExpiration <= Date.now()) {
-      const response = await refresh()
-      return true
-    }
+const validate = async (token: TokenObj): Promise<TokenObj> => {
+  console.log("validating token...")
+  const { tokenExpiration, refreshToken } = token
+
+  if (tokenExpiration && tokenExpiration <= Date.now()) {
+    console.log("token expired")
+    var refreshedToken = await refresh(refreshToken)
+  } else {
+    refreshedToken = token
   }
-  return false
+
+  return new Promise((resolve, reject) => {
+    if (refreshedToken) {
+      console.log("token is valid")
+      resolve(refreshedToken)
+    } else {
+      console.log("error validating token")
+      reject("Error validating token")
+    }
+  })
 }
 
 // get the discord user details
-const getUser = async () => {
-  const hasToken = await validate()
-  if (hasToken) {
+async function getCurrentUser(token: TokenObj) {
+  console.log("getting user...")
+  const validatedToken = await validate(token)
+  console.log("token is valid")
+  if (validatedToken) {
     const response = await fetch("http://discordapp.com/api/users/@me", {
       method: "GET",
       headers: {
-        'Authorization': `Bearer ${accessToken}`
+        'Authorization': `Bearer ${validatedToken.accessToken}`
       },
     })
     return await response.json()
   } else {
-    return undefined
+    return new Promise((_, reject) => {
+      reject("Error retrieving user")
+    })
   }
 }
 
@@ -69,13 +96,26 @@ router.get('/login', (req: any, res: any) => {
   res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=${CLIENT_ID}&scope=identify&response_type=code&redirect_uri=${redirect}`);
 });
 
+router.get('/user/:id', async (req: any, res: any) => {
+  const id = req.params.id
+  console.log(id)
+  // get token from db using id
+  const user = await getUserFromDB(id)
+  console.log(user)
+  res.json(user)
+})
+
 // callback for discord auth
 // gets the discord token, gets the discord user details, adds that user to the db, then redirects to the homepage 
 router.get('/callback', catchAsync(async (req: any, res: any) => {
+  console.log("1")
+  // check if the discord api sent a code, if it did get that code
   if (!req.query.code) throw new Error('NoCodeProvided');
   const code = req.query.code;
-  const creds = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
 
+  console.log("2")
+  // initialize parameters needed to make discord api call
+  const creds = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
   const params = new URLSearchParams();
   params.append('client_id', CLIENT_ID!!)
   params.append('client_secret', CLIENT_SECRET!!)
@@ -83,6 +123,8 @@ router.get('/callback', catchAsync(async (req: any, res: any) => {
   params.append('code', code);
   params.append('redirect_uri', redirect);
 
+  console.log("3")
+  // get discord token from discord api
   const response = await fetch(`https://discord.com/api/oauth2/token`,
     {
       method: 'POST',
@@ -92,18 +134,29 @@ router.get('/callback', catchAsync(async (req: any, res: any) => {
       body: params
     });
   const json = await response.json();
-  accessToken = json.access_token
-  refreshToken = json.refresh_token
-  tokenExpiration = Date.now()// + json.expires_in
-  const user = await getUser()
-  addUser({
+  const accessToken = json.access_token
+  const refreshToken = json.refresh_token
+  const tokenExpiration = Date.now() + json.expires_in
+  const token = { accessToken, refreshToken, tokenExpiration }
+
+  console.log("4")
+  // user this token to get user info
+  const user = await getCurrentUser(token)
+  console.log(user)
+
+  console.log("5")
+  // add/update user in database
+  addUserToDB({
     id: user.id,
     name: user.username,
     accessToken: accessToken!!,
     refreshToken: refreshToken!!,
-    tokenExpiration: tokenExpiration
+    tokenExpiration: tokenExpiration!!
   })
-  res.redirect(`/`);
+
+  console.log("6")
+  // redirect client to homepage and pass user id
+  res.redirect(`/?id=${user.id}`);
 }));
 
 module.exports = router;

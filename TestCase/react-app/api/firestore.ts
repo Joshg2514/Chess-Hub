@@ -9,6 +9,18 @@ initializeApp({
 })
 const db = getFirestore()
 
-export const addUser = async (user: UserObj) => {
-  const res = await db.collection('users').doc(user.id).set(user);
+export const addUserToDB = async (user: UserObj) => {
+  await db.collection('users').doc(user.id).set(user);
+}
+
+export const getUserFromDB = async (id: string): Promise<UserObj> => {
+  const ref = db.collection('users').doc(id);
+  const doc = await ref.get();
+  return new Promise((resolve, reject) => {
+    if (doc.exists) {
+      resolve(doc.data())
+    } else {
+      reject(`Error retrieving user with id ${id}`)
+    }
+  })
 }

@@ -24,7 +24,7 @@ export default function HomeScreen(props: ScreenProps) {
 
     return (
         <div id={"main-container"}>
-            <Header />
+            <Header user={props.user} />
             <div style={{ display: "flex", flexDirection: "row", backgroundColor: "whitesmoke" }}>
                 <div className={"side-padding"} />
                 <div id={"columns-container"}>
