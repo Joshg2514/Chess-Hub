@@ -14,13 +14,13 @@ import {
     dummyScheduledGames
 } from "../models/DummyData"
 import YourGamesWidget from "../components/YourGamesWidget";
-import ScreenProps from "./ScreensProps";
+import UserProps from "./ScreensProps";
 
 const MAX_CHALLENGES = 5;
 const MAX_LEADERBOARD_SIZE = 10;
 const MAX_GAMES = 5;
 
-export default function HomeScreen(props: ScreenProps) {
+export default function HomeScreen(props: UserProps) {
 
     return (
         <div id={"main-container"}>

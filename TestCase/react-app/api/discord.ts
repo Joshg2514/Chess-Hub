@@ -51,11 +51,9 @@ const refresh = async (refreshToken: string): Promise<TokenObj> => {
 
 // make sure the current accessToken is not expired
 const validate = async (token: TokenObj): Promise<TokenObj> => {
-  console.log("validating token...")
   const { tokenExpiration, refreshToken } = token
 
   if (tokenExpiration && tokenExpiration <= Date.now()) {
-    console.log("token expired")
     var refreshedToken = await refresh(refreshToken)
   } else {
     refreshedToken = token
@@ -63,7 +61,6 @@ const validate = async (token: TokenObj): Promise<TokenObj> => {
 
   return new Promise((resolve, reject) => {
     if (refreshedToken) {
-      console.log("token is valid")
       resolve(refreshedToken)
     } else {
       console.log("error validating token")
@@ -74,9 +71,7 @@ const validate = async (token: TokenObj): Promise<TokenObj> => {
 
 // get the discord user details
 async function getCurrentUser(token: TokenObj) {
-  console.log("getting user...")
   const validatedToken = await validate(token)
-  console.log("token is valid")
   if (validatedToken) {
     const response = await fetch("http://discordapp.com/api/users/@me", {
       method: "GET",
@@ -98,22 +93,18 @@ router.get('/login', (req: any, res: any) => {
 
 router.get('/user/:id', async (req: any, res: any) => {
   const id = req.params.id
-  console.log(id)
   // get token from db using id
   const user = await getUserFromDB(id)
-  console.log(user)
   res.json(user)
 })
 
 // callback for discord auth
 // gets the discord token, gets the discord user details, adds that user to the db, then redirects to the homepage 
 router.get('/callback', catchAsync(async (req: any, res: any) => {
-  console.log("1")
   // check if the discord api sent a code, if it did get that code
   if (!req.query.code) throw new Error('NoCodeProvided');
   const code = req.query.code;
 
-  console.log("2")
   // initialize parameters needed to make discord api call
   const creds = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
   const params = new URLSearchParams();
@@ -123,7 +114,6 @@ router.get('/callback', catchAsync(async (req: any, res: any) => {
   params.append('code', code);
   params.append('redirect_uri', redirect);
 
-  console.log("3")
   // get discord token from discord api
   const response = await fetch(`https://discord.com/api/oauth2/token`,
     {
@@ -139,22 +129,23 @@ router.get('/callback', catchAsync(async (req: any, res: any) => {
   const tokenExpiration = Date.now() + json.expires_in
   const token = { accessToken, refreshToken, tokenExpiration }
 
-  console.log("4")
   // user this token to get user info
   const user = await getCurrentUser(token)
-  console.log(user)
 
-  console.log("5")
   // add/update user in database
   addUserToDB({
     id: user.id,
     name: user.username,
-    accessToken: accessToken!!,
-    refreshToken: refreshToken!!,
-    tokenExpiration: tokenExpiration!!
+    imageUrl: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+    isAdmin: false,
+    club: "lsu-chess-club",
+    token: {
+      accessToken: accessToken!!,
+      refreshToken: refreshToken!!,
+      tokenExpiration: tokenExpiration!!
+    }
   })
 
-  console.log("6")
   // redirect client to homepage and pass user id
   res.redirect(`/?id=${user.id}`);
 }));

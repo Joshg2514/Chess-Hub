@@ -1,5 +1,5 @@
 import { UserObj } from "../models/UserObj";
 
-export default interface ScreenProps {
+export default interface UserProps {
   user?: UserObj
 }

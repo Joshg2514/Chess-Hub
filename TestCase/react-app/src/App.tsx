@@ -50,8 +50,13 @@ function App() {
             }
           }).then(json => {
             window.localStorage.setItem('user', JSON.stringify(json))
+            const { id, name, imageUrl, isAdmin, club } = json
             setUser({
-              name: json.name
+              id: id,
+              name: name,
+              imageUrl: imageUrl,
+              isAdmin: isAdmin,
+              club: club
             })
           }).catch(err => console.log(err))
         } else {
@@ -67,7 +72,7 @@ function App() {
       <Route path="/update" element={<UpdateMatchScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/signup" element={<SignUpScreen />} />
-      <Route path="/admin" element={<AdminScreen />} />
+      <Route path="/admin" element={<AdminScreen user={user} />} />
     </Routes>
   );
 }
