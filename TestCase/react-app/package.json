@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start-client": "react-scripts start",
-    "start": "npm run build && (tsc api/discord.ts && tsc api/index.ts && tsc api/firestore.ts && cd api && node index.js)",
+    "start": "npm run build && (tsc api/discord.ts && tsc api/index.ts && tsc api/firestore.ts && tsc api/challenges.ts && cd api && node index.js)",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

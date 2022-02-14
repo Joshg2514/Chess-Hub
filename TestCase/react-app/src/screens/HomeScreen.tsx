@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../Global.css"
 import "./HomeScreen.css"
 import Header from "../components/Header"
@@ -15,6 +15,8 @@ import {
 } from "../models/DummyData"
 import YourGamesWidget from "../components/YourGamesWidget";
 import UserProps from "./ScreensProps";
+import { getChallengers, getChallengesToUser, getUser } from "../api";
+import { UserObj } from "../models/UserObj";
 
 const MAX_CHALLENGES = 5;
 const MAX_LEADERBOARD_SIZE = 10;
@@ -22,9 +24,23 @@ const MAX_GAMES = 5;
 
 export default function HomeScreen(props: UserProps) {
 
+    const { user } = props
+
+    const [challengers, setChallengers] = useState<UserObj[] | undefined>([])
+
+    useEffect(() => {
+        if (user?.id) {
+            getChallengers(user.id).then(res => {
+                setChallengers(res)
+            }).catch(e => {
+                setChallengers(undefined)
+            })
+        }
+    }, [user?.id])
+
     return (
         <div id={"main-container"}>
-            <Header user={props.user} />
+            <Header user={user} />
             <div style={{ display: "flex", flexDirection: "row", backgroundColor: "whitesmoke" }}>
                 <div className={"side-padding"} />
                 <div id={"columns-container"}>
@@ -36,7 +52,7 @@ export default function HomeScreen(props: UserProps) {
                     <div style={{ width: 32, height: 16 }} />
                     <div className={"column"}>
                         <div className={"column-item"}>
-                            <ChallengesWidget challengers={dummyChallengers.slice(0, MAX_CHALLENGES)} />
+                            <ChallengesWidget challengers={challengers || ([] as UserObj[])} />
                         </div>
                         <div style={{ height: 16 }} />
                         <div className={"column-item"}>

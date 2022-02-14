@@ -15,6 +15,8 @@ app.get("/test", (req: any, res: any) => {
 // Routes
 app.use('/api/discord', require('./discord'));
 
+app.use('/api/challenges', require('./challenges'));
+
 app.post("/api/update", function (req: any, res: any) {
   /*
   var num1 = Number(req.body.num1);
