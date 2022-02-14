@@ -26,14 +26,14 @@ export default function HomeScreen(props: UserProps) {
 
     const { user } = props
 
-    const [challengers, setChallengers] = useState<UserObj[] | undefined>([])
+    const [challengers, setChallengers] = useState<UserObj[] | undefined>(undefined)
 
     useEffect(() => {
         if (user?.id) {
             getChallengers(user.id).then(res => {
                 setChallengers(res)
             }).catch(e => {
-                setChallengers(undefined)
+                setChallengers([])
             })
         }
     }, [user?.id])
@@ -52,7 +52,7 @@ export default function HomeScreen(props: UserProps) {
                     <div style={{ width: 32, height: 16 }} />
                     <div className={"column"}>
                         <div className={"column-item"}>
-                            <ChallengesWidget challengers={challengers || ([] as UserObj[])} />
+                            <ChallengesWidget challengers={challengers} />
                         </div>
                         <div style={{ height: 16 }} />
                         <div className={"column-item"}>
