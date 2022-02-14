@@ -7,6 +7,7 @@ import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import AdminScreen from "./screens/AdminScreen";
 import { UserObj } from "./models/UserObj";
+import { getUser } from "./api";
 
 function App() {
 
@@ -40,15 +41,7 @@ function App() {
         const params = new URL(url).searchParams
         let id: string | null = params.get('id')
         if (id) {
-          fetch(`/api/discord/user/${id}`).then(async (res) => {
-            if (res.status === 200) {
-              const json = await res.json()
-              console.log(json)
-              return json
-            } else {
-              throw 'Error retrieving user info'
-            }
-          }).then(json => {
+          getUser(id).then(json => {
             window.localStorage.setItem('user', JSON.stringify(json))
             const { id, name, imageUrl, isAdmin, club } = json
             setUser({
