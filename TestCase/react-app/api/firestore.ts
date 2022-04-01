@@ -26,6 +26,12 @@ export const getUserFromDB = async (id: string): Promise<UserObj> => {
   })
 }
 
+export const addChallengeToDB = async (to: string, from: string) => {
+  await db.collection('challenges').add({
+    from, to
+  })
+}
+
 export const getChallengesToUserFromDB = async (id: string): Promise<string[]> => {
   const ref = db.collection('challenges').where('to', '==', id)
   const snapshot = await ref.get();
