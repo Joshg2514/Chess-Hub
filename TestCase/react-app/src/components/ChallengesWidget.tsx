@@ -1,9 +1,9 @@
 import React from "react";
 import { UserObj } from "../models/UserObj";
 
-export default function ChallengesWidget(props: { challengers: UserObj[] | undefined }) {
+export default function ChallengesWidget(props: { challengers: UserObj[] | undefined, setShowDialog: Function }) {
 
-    const { challengers } = props
+    const { challengers, setShowDialog } = props
 
     return (
         <>
@@ -23,6 +23,7 @@ export default function ChallengesWidget(props: { challengers: UserObj[] | undef
                                 <div style={{ width: 8 }} />
                                 <div>{challenger.name}<span style={{ fontWeight: 600, marginLeft: 8 }}>({challenger.rank || "?"})</span></div>
                                 <div style={{ flex: 1 }} />
+                                <div style={{ width: 8 }} />
                                 <div className={"accept-button"}>Accept</div>
                             </div>)
                         )
@@ -32,7 +33,9 @@ export default function ChallengesWidget(props: { challengers: UserObj[] | undef
                     : (<div className={"widget-item"}>Loading challenges...</div>)
 
             }
-            <div className={"primary-button"} style={{ margin: 16, padding: 16 }}>Send A Challenge</div>
+            <div className={"primary-button"} style={{ margin: 16, padding: 16 }} onClick={() => {
+                setShowDialog(true)
+            }}>Send A Challenge</div>
         </>
     )
 }

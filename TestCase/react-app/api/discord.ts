@@ -91,13 +91,6 @@ router.get('/login', (req: any, res: any) => {
   res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=${CLIENT_ID}&scope=identify&response_type=code&redirect_uri=${redirect}`);
 });
 
-router.get('/user/:id', async (req: any, res: any) => {
-  const id = req.params.id
-  // get token from db using id
-  const user = await getUserFromDB(id)
-  res.json(user)
-})
-
 // callback for discord auth
 // gets the discord token, gets the discord user details, adds that user to the db, then redirects to the homepage 
 router.get('/callback', catchAsync(async (req: any, res: any) => {

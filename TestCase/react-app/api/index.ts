@@ -8,6 +8,7 @@ require('dotenv').config();
 // add middlewares
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get("/test", (req: any, res: any) => {
@@ -18,6 +19,8 @@ app.get("/test", (req: any, res: any) => {
 app.use('/api/discord', require('./discord'));
 
 app.use('/api/challenges', require('./challenges'));
+
+app.use('/api/users', require('./users'))
 
 app.post("/api/update", function (req: any, res: any) {
   /*

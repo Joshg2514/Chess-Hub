@@ -40,6 +40,8 @@ function App() {
       } else {
         const params = new URL(url).searchParams
         let id: string | null = params.get('id')
+        console.log('id:')
+        console.log(id)
         if (id) {
           getUser(id).then(json => {
             window.localStorage.setItem('user', JSON.stringify(json))
