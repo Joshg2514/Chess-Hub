@@ -1,4 +1,5 @@
 export interface ChallengeObj {
   from: string,
-  to: string
+  to: string,
+  accepted: boolean,
 }

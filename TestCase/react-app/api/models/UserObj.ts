@@ -6,6 +6,7 @@ export interface UserObj {
     token?: TokenObj,
     club?: string,
     rank?: number,
+    rating?: number,
     isAdmin?: boolean,
     imageUrl?: string,
 }

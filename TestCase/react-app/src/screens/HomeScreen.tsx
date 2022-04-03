@@ -15,7 +15,7 @@ import {
 } from "../models/DummyData"
 import YourGamesWidget from "../components/YourGamesWidget";
 import UserProps from "./ScreensProps";
-import { createChallenge, getChallengers, getChallengesToUser, getClubMembers, getUser } from "../api";
+import { createChallenge, getChallengers, getChallengesToUser, getClubMembers, getOpponents, getUser } from "../api";
 import { UserObj } from "../models/UserObj";
 import SendChallengeWidget from "../components/SendChallengeWidget";
 
@@ -29,6 +29,7 @@ export default function HomeScreen(props: UserProps) {
 
     const [members, setMembers] = useState<UserObj[] | undefined>(undefined)
     const [challengers, setChallengers] = useState<UserObj[] | undefined>(undefined)
+    const [opponents, setOpponents] = useState<UserObj[] | undefined>(undefined)
     const [showChallengeDialog, setShowChallengeDialog] = useState<boolean>(false)
 
     useEffect(() => {
@@ -37,6 +38,11 @@ export default function HomeScreen(props: UserProps) {
                 setChallengers(res)
             }).catch(e => {
                 setChallengers([])
+            })
+            getOpponents(user.id).then(res => {
+                setOpponents(res)
+            }).catch(e => {
+                setOpponents([])
             })
             if (user.club) {
                 getClubMembers(user.club).then(res => {
@@ -80,7 +86,7 @@ export default function HomeScreen(props: UserProps) {
                             </div>
                             <div style={{ height: 16 }} />
                             <div className={"column-item"}>
-                                <YourGamesWidget opponents={dummyOpponents.slice(0, MAX_GAMES)} />
+                                <YourGamesWidget opponents={opponents} />
                             </div>
                             <div style={{ height: 16 }} />
                             <div className={"column-item"} style={{ borderRadius: "8px 8px 0px 0px" }}>

@@ -22,6 +22,17 @@ export async function getChallengesToUser(id: string): Promise<string[]> {
   })
 }
 
+export async function getOpponentsOfUser(id: string): Promise<string[]> {
+  return fetch(`/api/challenges/opponents/${id}`).then(async (res) => {
+    if (res.status === 200) {
+      const json = await res.json()
+      return json.opponents
+    } else {
+      throw 'Error retrieving opponents'
+    }
+  })
+}
+
 export async function createChallenge(from: string, to: string) {
   const params = new URLSearchParams();
   params.append('from', from)
@@ -40,6 +51,16 @@ export async function getChallengers(id: string, limit: number = 100): Promise<U
     return challengers
   } else {
     throw 'Error retrieving challengers'
+  }
+}
+
+export async function getOpponents(id: string, limit: number = 100): Promise<UserObj[]> {
+  const opponentIds = await getOpponentsOfUser(id)
+  const opponents = await Promise.all(opponentIds.slice(0, limit).map(async id => await getUser(id)))
+  if (opponents) {
+    return opponents
+  } else {
+    throw 'Error retrieving opponents'
   }
 }
 

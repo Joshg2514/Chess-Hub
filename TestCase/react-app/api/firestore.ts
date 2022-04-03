@@ -11,6 +11,10 @@ initializeApp({
 const db = getFirestore()
 
 export const addUserToDB = async (user: UserObj) => {
+  const doc = await db.collection('users').doc(user.id).get()
+  if (!doc.exists) {
+    user = { ...user, rating: 1000 }
+  }
   await db.collection('users').doc(user.id).set(user);
 }
 
@@ -37,14 +41,23 @@ export const getUsersByClubFromDB = async (clubId: string): Promise<UserObj[]> =
   })
 }
 
-export const addChallengeToDB = async (to: string, from: string) => {
-  await db.collection('challenges').add({
-    from, to
-  })
+export const addChallengeToDB = async (challenge: ChallengeObj) => {
+  await db.collection('challenges').add(challenge)
 }
 
 export const getChallengesToUserFromDB = async (id: string): Promise<string[]> => {
-  const snapshot = await db.collection('challenges').where('to', '==', id).get();
+  const snapshot = await db.collection('challenges').where('to', '==', id).where('accepted', '==', false).get();
+  return new Promise((resolve, reject) => {
+    if (snapshot.docs) {
+      resolve(snapshot.docs.map((doc: any) => doc.data().from))
+    } else {
+      reject(`Error retrieving challenges to user ${id}`)
+    }
+  })
+}
+
+export const getOpponentsOfUserFromDB = async (id: string): Promise<string[]> => {
+  const snapshot = await db.collection('challenges').where('to', '==', id).where('accepted', '==', true).get();
   return new Promise((resolve, reject) => {
     if (snapshot.docs) {
       resolve(snapshot.docs.map((doc: any) => doc.data().from))
