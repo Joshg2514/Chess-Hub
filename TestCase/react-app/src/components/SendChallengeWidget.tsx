@@ -6,7 +6,7 @@ export default function SendChallengeWidget(props: { members: UserObj[], handleC
   const { members, handleCreateChallenge } = props
 
   return (
-    <div className="column-item">
+    <div className="column-item" onClick={(e) => e.stopPropagation()}>
       <h4 id={"widget-header"}>
         Send A Challenge
       </h4>

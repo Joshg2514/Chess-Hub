@@ -2,9 +2,9 @@ import React from "react";
 import { ScheduledGameObj } from "../models/ScheduledGameObj";
 import { equals, UserObj } from "../models/UserObj";
 
-export default function YourGamesWidget(props: { opponents: UserObj[] | undefined }) {
+export default function YourGamesWidget(props: { opponents: UserObj[] | undefined, handleSubmitScore: Function }) {
 
-    const { opponents } = props
+    const { opponents, handleSubmitScore } = props
 
     return (
         <>
@@ -23,7 +23,7 @@ export default function YourGamesWidget(props: { opponents: UserObj[] | undefine
                                 <span style={{ fontWeight: 600 }}>VS</span>&nbsp;
                                 {opponent.name}&nbsp;<span style={{ fontWeight: 600 }}>({opponent.rank || '?'})</span>
                                 <div style={{ flex: 1 }} />
-                                <div className={"primary-button"}>Submit</div>
+                                <div className={"primary-button"} onClick={() => handleSubmitScore(opponent)}>Submit</div>
                             </div>)
                         )
                         : (

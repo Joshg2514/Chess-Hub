@@ -18,6 +18,7 @@ import UserProps from "./ScreensProps";
 import { acceptChallenge, createChallenge, getChallengers, getChallengesToUser, getClubMembers, getOpponents, getUser } from "../api";
 import { UserObj } from "../models/UserObj";
 import SendChallengeWidget from "../components/SendChallengeWidget";
+import SubmitScoreWidget from "../components/SubmitScoreWidget";
 
 const MAX_CHALLENGES = 5;
 const MAX_LEADERBOARD_SIZE = 10;
@@ -31,6 +32,7 @@ export default function HomeScreen(props: UserProps) {
     const [challengers, setChallengers] = useState<UserObj[] | undefined>(undefined)
     const [opponents, setOpponents] = useState<UserObj[] | undefined>(undefined)
     const [showChallengeDialog, setShowChallengeDialog] = useState<boolean>(false)
+    const [submitScoreOpponent, setSubmitScoreOpponent] = useState<UserObj | undefined>(undefined)
 
     useEffect(() => {
         if (user?.id) {
@@ -70,11 +72,20 @@ export default function HomeScreen(props: UserProps) {
         }
     }
 
+    const handleSubmitScore = (submitScoreOpponent: UserObj | undefined) => {
+        setSubmitScoreOpponent(submitScoreOpponent)
+    }
+
     return (
         <>
             {showChallengeDialog && (
-                <div className="dialog">
+                <div className="dialog" onClick={() => setShowChallengeDialog(false)}>
                     <SendChallengeWidget members={members?.filter((member) => member.id !== user?.id) || []} handleCreateChallenge={handleCreateChallenge} />
+                </div>
+            )}
+            {submitScoreOpponent && (
+                <div className="dialog" onClick={() => setSubmitScoreOpponent(undefined)}>
+                    <SubmitScoreWidget player1={user} player2={submitScoreOpponent} />
                 </div>
             )}
             <div id={"main-container"}>
@@ -94,7 +105,7 @@ export default function HomeScreen(props: UserProps) {
                             </div>
                             <div style={{ height: 16 }} />
                             <div className={"column-item"}>
-                                <YourGamesWidget opponents={opponents} />
+                                <YourGamesWidget opponents={opponents} handleSubmitScore={handleSubmitScore} />
                             </div>
                             <div style={{ height: 16 }} />
                             <div className={"column-item"} style={{ borderRadius: "8px 8px 0px 0px" }}>
