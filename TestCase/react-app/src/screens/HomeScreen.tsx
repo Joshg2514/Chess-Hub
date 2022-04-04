@@ -15,7 +15,7 @@ import {
 } from "../models/DummyData"
 import YourGamesWidget from "../components/YourGamesWidget";
 import UserProps from "./ScreensProps";
-import { createChallenge, getChallengers, getChallengesToUser, getClubMembers, getOpponents, getUser } from "../api";
+import { acceptChallenge, createChallenge, getChallengers, getChallengesToUser, getClubMembers, getOpponents, getUser } from "../api";
 import { UserObj } from "../models/UserObj";
 import SendChallengeWidget from "../components/SendChallengeWidget";
 
@@ -54,7 +54,7 @@ export default function HomeScreen(props: UserProps) {
         }
     }, [user?.id])
 
-    const handleChallenge = (id: string | undefined) => {
+    const handleCreateChallenge = (id: string | undefined) => {
         if (user?.id && id) {
             createChallenge(user.id, id).finally(() => {
                 setShowChallengeDialog(false)
@@ -62,11 +62,19 @@ export default function HomeScreen(props: UserProps) {
         }
     }
 
+    const handleAcceptChallenge = (acceptedChallenger: UserObj | undefined) => {
+        if (user?.id && acceptedChallenger?.id) {
+            acceptChallenge(acceptedChallenger.id, user.id)
+            setChallengers(challengers?.filter((challenger) => challenger.id !== acceptedChallenger.id))
+            setOpponents(prevOpponents => [...(prevOpponents || []), acceptedChallenger])
+        }
+    }
+
     return (
         <>
             {showChallengeDialog && (
                 <div className="dialog">
-                    <SendChallengeWidget members={members?.filter((member) => member.id !== user?.id) || []} handleChallenge={handleChallenge} />
+                    <SendChallengeWidget members={members?.filter((member) => member.id !== user?.id) || []} handleCreateChallenge={handleCreateChallenge} />
                 </div>
             )}
             <div id={"main-container"}>
@@ -82,7 +90,7 @@ export default function HomeScreen(props: UserProps) {
                         <div style={{ width: 32, height: 16 }} />
                         <div className={"column"}>
                             <div className={"column-item"}>
-                                <ChallengesWidget challengers={challengers} setShowDialog={setShowChallengeDialog} />
+                                <ChallengesWidget challengers={challengers} setShowDialog={setShowChallengeDialog} handleAcceptChallenge={handleAcceptChallenge} />
                             </div>
                             <div style={{ height: 16 }} />
                             <div className={"column-item"}>

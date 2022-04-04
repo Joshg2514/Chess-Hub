@@ -1,9 +1,9 @@
 import React from "react";
 import { UserObj } from "../models/UserObj";
 
-export default function SendChallengeWidget(props: { members: UserObj[], handleChallenge: Function }) {
+export default function SendChallengeWidget(props: { members: UserObj[], handleCreateChallenge: Function }) {
 
-  const { members, handleChallenge } = props
+  const { members, handleCreateChallenge } = props
 
   return (
     <div className="column-item">
@@ -20,7 +20,7 @@ export default function SendChallengeWidget(props: { members: UserObj[], handleC
                   <div style={{ width: 8 }} />
                   <div>{member.name}<span style={{ fontWeight: 600, marginLeft: 8 }}>({member.rank || "?"})</span></div>
                   <div style={{ flex: 1 }} />
-                  <div className={"primary-button"} onClick={() => handleChallenge(member.id)}>Challenge</div>
+                  <div className={"primary-button"} onClick={() => handleCreateChallenge(member.id)}>Challenge</div>
                 </div>)
               )
               : (

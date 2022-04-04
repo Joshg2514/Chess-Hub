@@ -1,5 +1,5 @@
 export { }
-import { addChallengeToDB, getChallengesToUserFromDB, getOpponentsOfUserFromDB } from "./firestore";
+import { acceptChallenge, addChallengeToDB, getChallengesToUserFromDB, getOpponentsOfUserFromDB } from "./firestore";
 import { ChallengeObj } from "./models/ChallengeObj";
 const express = require('express');
 const fetch = require('node-fetch')
@@ -15,6 +15,13 @@ router.get('/to/:id', async (req: any, res: any) => {
   res.json({ challengers })
 })
 
+router.post('/accept', async (req: any, res: any) => {
+  const from = req.body.from
+  const to = req.body.to
+  await acceptChallenge(from, to)
+  res.send('Challenge accepted')
+})
+
 router.get('/opponents/:id', async (req: any, res: any) => {
   const id = req.params.id
   const opponents = await getOpponentsOfUserFromDB(id)
@@ -22,13 +29,11 @@ router.get('/opponents/:id', async (req: any, res: any) => {
 })
 
 router.post('/create', async (req: any, res: any) => {
-  console.log("creating challenge...")
-  console.log(req.body)
   const from = req.body.from
   const to = req.body.to
   const challenge: ChallengeObj = { from, to, accepted: false }
   await addChallengeToDB(challenge)
-  res.send("Challenge created!")
+  res.send("Challenge created")
 })
 
 module.exports = router;

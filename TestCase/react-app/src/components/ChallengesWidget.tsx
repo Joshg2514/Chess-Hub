@@ -1,9 +1,9 @@
 import React from "react";
 import { UserObj } from "../models/UserObj";
 
-export default function ChallengesWidget(props: { challengers: UserObj[] | undefined, setShowDialog: Function }) {
+export default function ChallengesWidget(props: { challengers: UserObj[] | undefined, setShowDialog: Function, handleAcceptChallenge: Function }) {
 
-    const { challengers, setShowDialog } = props
+    const { challengers, setShowDialog, handleAcceptChallenge } = props
 
     return (
         <>
@@ -24,7 +24,7 @@ export default function ChallengesWidget(props: { challengers: UserObj[] | undef
                                 <div>{challenger.name}<span style={{ fontWeight: 600, marginLeft: 8 }}>({challenger.rank || "?"})</span></div>
                                 <div style={{ flex: 1 }} />
                                 <div style={{ width: 8 }} />
-                                <div className={"accept-button"}>Accept</div>
+                                <div className={"accept-button"} onClick={() => handleAcceptChallenge(challenger)}>Accept</div>
                             </div>)
                         )
                         : (

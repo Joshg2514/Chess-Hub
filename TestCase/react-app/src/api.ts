@@ -43,6 +43,16 @@ export async function createChallenge(from: string, to: string) {
   })
 }
 
+export async function acceptChallenge(from: string, to: string) {
+  const params = new URLSearchParams();
+  params.append('from', from)
+  params.append('to', to)
+  return fetch(`/api/challenges/accept`, {
+    method: 'POST',
+    body: params
+  })
+}
+
 export async function getChallengers(id: string, limit: number = 100): Promise<UserObj[]> {
   const challengerIds = await getChallengesToUser(id)
   const challengers = await Promise.all(challengerIds.slice(0, limit).map(async id => await getUser(id)))
