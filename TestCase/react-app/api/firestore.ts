@@ -56,6 +56,15 @@ export const acceptChallenge = async (from: string, to: string) => {
   }
 }
 
+export const removeChallenge = async (from: string, to: string) => {
+  const snapshot = await db.collection('challenges').where('to', '==', to).where('from', '==', from).where('accepted', '==', true).get()
+  if (snapshot.docs) {
+    snapshot.docs.forEach((doc: any) => {
+      doc.ref.delete()
+    });
+  }
+}
+
 export const getChallengesToUserFromDB = async (id: string): Promise<string[]> => {
   const snapshot = await db.collection('challenges').where('to', '==', id).where('accepted', '==', false).get();
   return new Promise((resolve, reject) => {

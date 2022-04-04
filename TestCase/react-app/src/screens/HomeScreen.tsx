@@ -15,7 +15,7 @@ import {
 } from "../models/DummyData"
 import YourGamesWidget from "../components/YourGamesWidget";
 import UserProps from "./ScreensProps";
-import { acceptChallenge, createChallenge, getChallengers, getChallengesToUser, getClubMembers, getOpponents, getUser } from "../api";
+import { acceptChallenge, createChallenge, getChallengers, getChallengesToUser, getClubMembers, getOpponents, getUser, submitScore } from "../api";
 import { UserObj } from "../models/UserObj";
 import SendChallengeWidget from "../components/SendChallengeWidget";
 import SubmitScoreWidget from "../components/SubmitScoreWidget";
@@ -64,6 +64,14 @@ export default function HomeScreen(props: UserProps) {
         }
     }
 
+    const handleSubmitScore = (player1: UserObj, player2: UserObj, player1Won: boolean | undefined) => {
+        if (player1 && player2) {
+            submitScore(player1, player2, player1Won)
+            setOpponents((prevOpponents: UserObj[] | undefined) => prevOpponents?.filter((prevOpponent) => prevOpponent.id !== player2.id))
+            setSubmitScoreOpponent(undefined)
+        }
+    }
+
     const handleAcceptChallenge = (acceptedChallenger: UserObj | undefined) => {
         if (user?.id && acceptedChallenger?.id) {
             acceptChallenge(acceptedChallenger.id, user.id)
@@ -72,7 +80,7 @@ export default function HomeScreen(props: UserProps) {
         }
     }
 
-    const handleSubmitScore = (submitScoreOpponent: UserObj | undefined) => {
+    const handleOpenSubmitScoreDialog = (submitScoreOpponent: UserObj | undefined) => {
         setSubmitScoreOpponent(submitScoreOpponent)
     }
 
@@ -85,7 +93,7 @@ export default function HomeScreen(props: UserProps) {
             )}
             {submitScoreOpponent && (
                 <div className="dialog" onClick={() => setSubmitScoreOpponent(undefined)}>
-                    <SubmitScoreWidget player1={user} player2={submitScoreOpponent} />
+                    <SubmitScoreWidget player1={user} player2={submitScoreOpponent} handleSubmitScore={handleSubmitScore} />
                 </div>
             )}
             <div id={"main-container"}>
@@ -105,7 +113,7 @@ export default function HomeScreen(props: UserProps) {
                             </div>
                             <div style={{ height: 16 }} />
                             <div className={"column-item"}>
-                                <YourGamesWidget opponents={opponents} handleSubmitScore={handleSubmitScore} />
+                                <YourGamesWidget opponents={opponents} handleSubmitScore={handleOpenSubmitScoreDialog} />
                             </div>
                             <div style={{ height: 16 }} />
                             <div className={"column-item"} style={{ borderRadius: "8px 8px 0px 0px" }}>

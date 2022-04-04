@@ -53,6 +53,17 @@ export async function acceptChallenge(from: string, to: string) {
   })
 }
 
+export async function submitScore(player1: UserObj, player2: UserObj, player1Won: boolean | undefined) {
+  const params = new URLSearchParams();
+  params.append('player1', JSON.stringify(player1))
+  params.append('player2', JSON.stringify(player2))
+  params.append('winner', player1Won === true ? '1' : player1Won === false ? '2' : '0')
+  return fetch(`/api/challenges/submit-score`, {
+    method: 'POST',
+    body: params
+  })
+}
+
 export async function getChallengers(id: string, limit: number = 100): Promise<UserObj[]> {
   const challengerIds = await getChallengesToUser(id)
   const challengers = await Promise.all(challengerIds.slice(0, limit).map(async id => await getUser(id)))

@@ -17,6 +17,8 @@ function App() {
 
   const url = window.location.href
 
+  console.log(user)
+
   useEffect(() => {
 
     /*
@@ -45,13 +47,15 @@ function App() {
         if (id) {
           getUser(id).then(json => {
             window.localStorage.setItem('user', JSON.stringify(json))
-            const { id, name, imageUrl, isAdmin, club } = json
+            const { id, name, imageUrl, isAdmin, club, rating, rank } = json
             setUser({
-              id: id,
-              name: name,
-              imageUrl: imageUrl,
-              isAdmin: isAdmin,
-              club: club
+              id,
+              name,
+              imageUrl,
+              isAdmin,
+              club,
+              rating,
+              rank
             })
           }).catch(err => console.log(err))
         } else {
