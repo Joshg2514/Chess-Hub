@@ -37,30 +37,31 @@ function App() {
 
     if (!user && !url.includes('login')) {
       const storedUserString = window.localStorage.getItem('user')
-      if (storedUserString) {
-        setUser(JSON.parse(storedUserString))
-      } else {
-        const params = new URL(url).searchParams
-        let id: string | null = params.get('id')
-        console.log('id:')
-        console.log(id)
-        if (id) {
-          getUser(id).then(json => {
-            window.localStorage.setItem('user', JSON.stringify(json))
-            const { id, name, imageUrl, isAdmin, club, rating, rank } = json
-            setUser({
-              id,
-              name,
-              imageUrl,
-              isAdmin,
-              club,
-              rating,
-              rank
-            })
-          }).catch(err => console.log(err))
-        } else {
+      const storedUser: UserObj | null = storedUserString && JSON.parse(storedUserString)
+      if (storedUser) {
+        setUser(storedUser)
+      }
+      const params = new URL(url).searchParams
+      let id: string | null = params.get('id') || (storedUser?.id || null)
+      if (id) {
+        getUser(id).then(json => {
+          window.localStorage.setItem('user', JSON.stringify(json))
+          const { id, name, imageUrl, isAdmin, club, rating, rank } = json
+          setUser({
+            id,
+            name,
+            imageUrl,
+            isAdmin,
+            club,
+            rating,
+            rank
+          })
+        }).catch(err => {
+          console.log(err)
           navigate('/login')
-        }
+        })
+      } else {
+        navigate('/login')
       }
     }
   }, [url, user])

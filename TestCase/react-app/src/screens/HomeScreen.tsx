@@ -103,7 +103,7 @@ export default function HomeScreen(props: UserProps) {
                     <div id={"columns-container"}>
                         <div className={"column"}>
                             <div className={"column-item"}>
-                                <LeaderboardWidget leaderboard={dummyLeaderboard.slice(0, MAX_LEADERBOARD_SIZE)} user={dummyLoggedInUser} />
+                                <LeaderboardWidget leaderboard={members?.filter((member) => member.rating !== undefined).sort((m1, m2) => m2.rating!! - m1.rating!!)} user={user} />
                             </div>
                         </div>
                         <div style={{ width: 32, height: 16 }} />
