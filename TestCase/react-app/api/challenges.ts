@@ -3,6 +3,7 @@ import { acceptChallenge, addChallengeToDB, addUserToDB, getChallengesToUserFrom
 import { ChallengeObj } from "./models/ChallengeObj";
 const express = require('express');
 const fetch = require('node-fetch')
+const eloRating = require('elo-rating')
 const { URLSearchParams } = require("url")
 require('dotenv').config({ path: __dirname + '/./../.env' });
 
@@ -25,17 +26,11 @@ router.post('/accept', async (req: any, res: any) => {
 router.post('/submit-score', async (req: any, res: any) => {
   const player1 = JSON.parse(req.body.player1)
   const player2 = JSON.parse(req.body.player2)
-  console.log(player1)
-  console.log(player2)
   const winner = req.body.winner
   if (winner === '1' || winner === '2') {
-    if (winner === '1') {
-      player1.rating += 10
-      player2.rating -= 10
-    } else if (winner === '2') {
-      player2.rating += 10
-      player1.rating -= 10
-    }
+    const result = eloRating.calculate(player1.rating, player2.rating, winner === '1');
+    player1.rating = result.playerRating
+    player2.rating = result.opponentRating
     await addUserToDB(player1)
     await addUserToDB(player2)
   }

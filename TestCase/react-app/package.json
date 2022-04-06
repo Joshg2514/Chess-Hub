@@ -14,6 +14,7 @@
     "body-parser": "^1.19.2",
     "btoa": "^1.2.1",
     "dotenv": "^14.3.2",
+    "elo-rating": "^1.0.1",
     "firebase": "^8.10.0",
     "firebase-admin": "^10.0.2",
     "node-fetch": "^2.6.6",
