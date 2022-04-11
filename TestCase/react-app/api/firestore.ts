@@ -12,7 +12,7 @@ const db = getFirestore()
 
 export const addUserToDB = async (user: UserObj) => {
   const doc = await db.collection('users').doc(user.id).get()
-  if (!doc.exists) {
+  if (!doc.exists || !doc.rating) {
     user = { ...user, rating: 1000 }
   }
   await db.collection('users').doc(user.id).set(user);

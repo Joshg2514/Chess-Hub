@@ -136,7 +136,8 @@ router.get('/callback', catchAsync(async (req: any, res: any) => {
       accessToken: accessToken!!,
       refreshToken: refreshToken!!,
       tokenExpiration: tokenExpiration!!
-    }
+    },
+    rating: user.rating || 1000
   })
 
   // redirect client to homepage and pass user id
