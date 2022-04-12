@@ -124,7 +124,6 @@ router.get('/callback', catchAsync(async (req: any, res: any) => {
 
   // user this token to get user info
   const user = await getCurrentUser(token)
-
   // add/update user in database
   addUserToDB({
     id: user.id,
@@ -137,7 +136,6 @@ router.get('/callback', catchAsync(async (req: any, res: any) => {
       refreshToken: refreshToken!!,
       tokenExpiration: tokenExpiration!!
     },
-    rating: user.rating || 1000
   })
 
   // redirect client to homepage and pass user id

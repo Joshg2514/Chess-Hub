@@ -1,5 +1,5 @@
 export { }
-import { acceptChallenge, addChallengeToDB, addUserToDB, getChallengesToUserFromDB, getOpponentsOfUserFromDB, removeChallenge } from "./firestore";
+import { acceptChallenge, addChallengeToDB, addUserToDB, getChallengesToUserFromDB, getOpponentsOfUserFromDB, removeChallenge, updateUserInDB } from "./firestore";
 import { ChallengeObj } from "./models/ChallengeObj";
 const express = require('express');
 const fetch = require('node-fetch')
@@ -31,8 +31,8 @@ router.post('/submit-score', async (req: any, res: any) => {
     const result = eloRating.calculate(player1.rating, player2.rating, winner === '1');
     player1.rating = result.playerRating
     player2.rating = result.opponentRating
-    await addUserToDB(player1)
-    await addUserToDB(player2)
+    await updateUserInDB(player1)
+    await updateUserInDB(player2)
   }
   await removeChallenge(player2.id, player1.id)
 })
