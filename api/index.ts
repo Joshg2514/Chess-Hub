@@ -4,7 +4,7 @@ const express = require("express");
 const bodyParser = require('body-parser')
 const app = express(); // create express app
 
-var PORT = process.env.PORT || 3000;
+
 require('dotenv').config();
 
 // add middlewares
@@ -46,7 +46,7 @@ app.use((req: any, res: any, next: any) => {
 });
 
 // start express server on port 3000
-app.listen(PORT , () => {
+app.listen(process.env.PORT || 3000 , () => {
   console.log("server started on port 3000");
 });
 
