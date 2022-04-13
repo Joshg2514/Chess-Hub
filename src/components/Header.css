@@ -3,27 +3,31 @@
     display: flex;
     width: 100%;
     align-items: center;
-    border-bottom: 1px solid gray; /* TODO: this border doesn't cover the entire screen width if the width is below ~315px */
+    /*border-bottom: 1px solid gray; /* TODO: this border doesn't cover the entire screen width if the width is below ~315px */
     /*background-image: url("../images/background.jpeg");*/
     /*background-repeat: no-repeat;*/
     /*background-size: cover;*/
     /*background-position: top;*/
 }
+
 #header-content {
     flex: 1;
     display: flex;
     padding: 16px;
     align-items: center;
 }
+
 #header-main-text {
     color: black;
     font-weight: 600;
     text-decoration: none;
 }
+
 #header-main-text:hover {
     cursor: pointer;
     opacity: 70%;
 }
+
 .header-dropdown {
     position: absolute;
     background-color: white;
@@ -33,21 +37,26 @@
     border-radius: 8px;
     box-shadow: 0px 2px 4px 0px gray;
 }
+
 .header-dropdown-item {
     cursor: pointer;
 }
+
 @media screen and (min-width: 601px) {
     #header-content {
         min-width: 600px;
     }
+
     #header-main-text {
         font-size: 2em;
     }
 }
+
 @media screen and (max-width: 600px) {
     #header-content {
         min-width: 280px;
     }
+
     #header-main-text {
         font-size: 1em;
     }
