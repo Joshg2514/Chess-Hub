@@ -13,7 +13,8 @@ const router = express.Router();
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
-const redirect = 'http://localhost:3000/api/discord/callback';
+//const redirect = 'http://localhost:3000/api/discord/callback';
+const redirect = 'https://chess-club-hub.herokuapp.com/api/discord/callback';
 
 // var accessToken: string | undefined
 // var refreshToken: string | undefined
