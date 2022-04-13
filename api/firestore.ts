@@ -2,11 +2,16 @@ import { ChallengeObj } from "./models/ChallengeObj";
 import { dummyUser, UserObj } from "./models/UserObj";
 const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
-const serviceAccount = require('./serviceAccountKey.json');
+//const serviceAccount = require('./serviceAccountKey.json');
 require('dotenv').config({ path: __dirname + '/./../.env' });
 
 initializeApp({
-  credential: cert(serviceAccount)
+  credential: cert({
+    "projectId": process.env.FIREBASE_PROJECT_ID,
+    "private_key": process.env.FIREBASE_PRIVATE_KEY,
+    "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+  }),
+  //databaseURL: "https://my-firebase-app.firebaseio.com"
 })
 const db = getFirestore()
 
