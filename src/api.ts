@@ -67,7 +67,6 @@ export async function submitScore(player1: UserObj, player2: UserObj, player1Won
 export async function getChallengers(id: string, limit: number = 100): Promise<UserObj[]> {
   const challengerIds = await getChallengesToUser(id)
   const challengers = await Promise.all(challengerIds.slice(0, limit).map(async id => await getUser(id)))
-  console.log(challengers)
   if (challengers) {
     return challengers
   } else {
@@ -77,7 +76,9 @@ export async function getChallengers(id: string, limit: number = 100): Promise<U
 
 export async function getOpponents(id: string, limit: number = 100): Promise<UserObj[]> {
   const opponentIds = await getOpponentsOfUser(id)
+  console.log(opponentIds)
   const opponents = await Promise.all(opponentIds.slice(0, limit).map(async id => await getUser(id)))
+  console.log(opponents)
   if (opponents) {
     return opponents
   } else {

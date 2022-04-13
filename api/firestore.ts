@@ -88,10 +88,15 @@ export const getChallengesToUserFromDB = async (id: string): Promise<string[]> =
 }
 
 export const getOpponentsOfUserFromDB = async (id: string): Promise<string[]> => {
-  const snapshot = await db.collection('challenges').where('to', '==', id).where('accepted', '==', true).get();
+  const snapshot1 = await db.collection('challenges').where('to', '==', id).where('accepted', '==', true).get();
+  const snapshot2 = await db.collection('challenges').where('from', '==', id).where('accepted', '==', true).get();
+  const combinedSnapshot = !(snapshot1.docs) && !(snapshot2.docs) ? undefined : [...(snapshot1?.docs || []), ...(snapshot2.docs || [])]
   return new Promise((resolve, reject) => {
-    if (snapshot.docs) {
-      resolve(snapshot.docs.map((doc: any) => doc.data().from))
+    if (combinedSnapshot) {
+      resolve(combinedSnapshot.map((doc: any) => {
+        const challenge = doc.data()
+        return challenge.from === id ? challenge.to : challenge.from
+      }))
     } else {
       reject(`Error retrieving challenges to user ${id}`)
     }

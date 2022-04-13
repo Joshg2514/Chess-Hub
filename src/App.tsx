@@ -17,8 +17,6 @@ function App() {
 
   const url = window.location.href
 
-  console.log(user)
-
   useEffect(() => {
 
     /*
