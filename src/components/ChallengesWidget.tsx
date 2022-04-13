@@ -20,10 +20,7 @@ export default function ChallengesWidget(props: { challengers: UserObj[] | undef
                         (challengers.map((challenger, index) =>
                             <div className={"widget-item"} key={index}>
                                 <img src={challenger.imageUrl || require("../images/account.png")} id={"account-icon"} />
-                                <div style={{ width: 8 }} />
-                                <div>{challenger.name}<span style={{ fontWeight: 600, marginLeft: 8 }}>({challenger.rank || "?"})</span></div>
                                 <div style={{ flex: 1 }} />
-                                <div style={{ width: 8 }} />
                                 <div className={"accept-button"} onClick={() => handleAcceptChallenge(challenger)}>Accept</div>
                             </div>)
                         )

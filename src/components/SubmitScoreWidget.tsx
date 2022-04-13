@@ -15,9 +15,9 @@ export default function SubmitScoreWidget(props: { player1: UserObj | undefined,
         {player1 && player2 ? (
           <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
             <div style={{ display: "flex" }}>
-              <div>{player1.name}<span style={{ fontWeight: 600, marginLeft: 8 }}>({player1.rank || "?"})</span></div>
+              <div>{player1.name}</div>
               <div style={{ flex: 1 }} />
-              <div>{player2.name}<span style={{ fontWeight: 600, marginLeft: 8 }}>({player2.rank || "?"})</span></div>
+              <div>{player2.name}</div>
             </div>
             <div style={{ height: 16 }} />
             <div style={{ display: "flex" }}>

@@ -4,7 +4,6 @@ import "./HomeScreen.css"
 import Header from "../components/Header"
 import LeaderboardWidget from "../components/LeaderboardWidget";
 import ChallengesWidget from "../components/ChallengesWidget";
-import ScheduledGamesWidget from "../components/ScheduledGamesWidget";
 import GameOfTheDay from "../components/GameOfTheDay";
 import {
     dummyChallengers,

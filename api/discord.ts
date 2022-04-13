@@ -129,7 +129,7 @@ router.get('/callback', catchAsync(async (req: any, res: any) => {
   addUserToDB({
     id: user.id,
     name: user.username,
-    imageUrl: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+    imageUrl: user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/0.png`,
     isAdmin: false,
     club: "lsu-chess-club",
     token: {

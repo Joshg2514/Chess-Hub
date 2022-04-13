@@ -5,10 +5,12 @@ const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestor
 //const serviceAccount = require('./serviceAccountKey.json');
 require('dotenv').config({ path: __dirname + '/./../.env' });
 
+const DEFAULT_RATING = 1000
+
 initializeApp({
   credential: cert({
     "project_id": process.env.FIREBASE_PROJECT_ID,
-    "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    "private_key": process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
     "client_email": process.env.FIREBASE_CLIENT_EMAIL,
   }),
   //databaseURL: "https://my-firebase-app.firebaseio.com"
@@ -18,7 +20,7 @@ const db = getFirestore()
 export const addUserToDB = async (user: UserObj) => {
   const doc = await db.collection('users').doc(user.id).get()
   if (!doc.exists) {
-    user = { ...user, rating: 1000 }
+    user.rating = DEFAULT_RATING
     await db.collection('users').doc(user.id).set(user);
   } else {
     await updateUserInDB(user)
@@ -54,7 +56,7 @@ export const getUsersByClubFromDB = async (clubId: string): Promise<UserObj[]> =
 
 export const addChallengeToDB = async (challenge: ChallengeObj) => {
   const snapshot = await db.collection('challenges').where('to', '==', challenge.to).where('from', '==', challenge.from).get()
-  if (snapshot.docs) {
+  if (snapshot.docs.length === 0) {
     await db.collection('challenges').add(challenge)
   }
 }
@@ -90,7 +92,7 @@ export const getChallengesToUserFromDB = async (id: string): Promise<string[]> =
 export const getOpponentsOfUserFromDB = async (id: string): Promise<string[]> => {
   const snapshot1 = await db.collection('challenges').where('to', '==', id).where('accepted', '==', true).get();
   const snapshot2 = await db.collection('challenges').where('from', '==', id).where('accepted', '==', true).get();
-  const combinedSnapshot = !(snapshot1.docs) && !(snapshot2.docs) ? undefined : [...(snapshot1?.docs || []), ...(snapshot2.docs || [])]
+  const combinedSnapshot = (!(snapshot1?.docs) && !(snapshot2?.docs)) ? undefined : [...(snapshot1?.docs || []), ...(snapshot2.docs || [])]
   return new Promise((resolve, reject) => {
     if (combinedSnapshot) {
       resolve(combinedSnapshot.map((doc: any) => {

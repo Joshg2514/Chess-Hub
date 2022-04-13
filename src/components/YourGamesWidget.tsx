@@ -21,7 +21,7 @@ export default function YourGamesWidget(props: { opponents: UserObj[] | undefine
                         (opponents.map((opponent, index) =>
                             <div className={"widget-item"} key={index}>
                                 <span style={{ fontWeight: 600 }}>VS</span>&nbsp;
-                                {opponent.name}&nbsp;<span style={{ fontWeight: 600 }}>({opponent.rank || '?'})</span>
+                                {opponent.name}&nbsp;
                                 <div style={{ flex: 1 }} />
                                 <div className={"primary-button"} onClick={() => handleSubmitScore(opponent)}>Submit</div>
                             </div>)

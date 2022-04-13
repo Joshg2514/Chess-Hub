@@ -15,10 +15,10 @@ export default function SendChallengeWidget(props: { members: UserObj[], handleC
           members ?
             members.length > 0 ?
               (members.map((member, index) =>
-                <div className={"widget-item"} key={index}>
+                <div className={"widget-item"} key={index} style={{ minWidth: 280 }}>
                   <img src={member.imageUrl || require("../images/account.png")} id={"account-icon"} />
-                  <div style={{ width: 8 }} />
-                  <div>{member.name}<span style={{ fontWeight: 600, marginLeft: 8 }}>({member.rank || "?"})</span></div>
+                  <div style={{ width: 16 }} />
+                  {member.name}
                   <div style={{ flex: 1 }} />
                   <div className={"primary-button"} onClick={() => handleCreateChallenge(member.id)}>Challenge</div>
                 </div>)
