@@ -31,6 +31,7 @@ export default function HomeScreen(props: UserProps) {
     const [challengers, setChallengers] = useState<UserObj[] | undefined>(undefined)
     const [opponents, setOpponents] = useState<UserObj[] | undefined>(undefined)
     const [showChallengeDialog, setShowChallengeDialog] = useState<boolean>(false)
+    const [sendChallengeResponse, setSendChallengeResponse] = useState<string | null | undefined>(null)
     const [submitScoreOpponent, setSubmitScoreOpponent] = useState<UserObj | undefined>(undefined)
 
     useEffect(() => {
@@ -57,9 +58,16 @@ export default function HomeScreen(props: UserProps) {
 
     const handleCreateChallenge = (id: string | undefined) => {
         if (user?.id && id) {
-            createChallenge(user.id, id).finally(() => {
-                setShowChallengeDialog(false)
+            setSendChallengeResponse(undefined)
+            createChallenge(user.id, id).then(res => {
+                setSendChallengeResponse(res)
+                return res
+            }).catch(err => {
+                setSendChallengeResponse(err)
+                return err
             })
+        } else {
+            setSendChallengeResponse("Error validating user.")
         }
     }
 
@@ -86,8 +94,11 @@ export default function HomeScreen(props: UserProps) {
     return (
         <>
             {showChallengeDialog && (
-                <div className="dialog" onClick={() => setShowChallengeDialog(false)}>
-                    <SendChallengeWidget members={members?.filter((member) => member.id !== user?.id) || []} handleCreateChallenge={handleCreateChallenge} />
+                <div className="dialog" onClick={() => {
+                    setShowChallengeDialog(false)
+                    setSendChallengeResponse(null)
+                }}>
+                    <SendChallengeWidget members={members?.filter((member) => member.id !== user?.id) || []} handleCreateChallenge={handleCreateChallenge} response={sendChallengeResponse} />
                 </div>
             )}
             {submitScoreOpponent && (

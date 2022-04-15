@@ -33,13 +33,18 @@ export async function getOpponentsOfUser(id: string): Promise<string[]> {
   })
 }
 
-export async function createChallenge(from: string, to: string) {
+export async function createChallenge(from: string, to: string): Promise<string> {
   const params = new URLSearchParams();
   params.append('from', from)
   params.append('to', to)
-  return fetch(`/api/challenges/create`, {
+  return await fetch(`/api/challenges/create`, {
     method: 'POST',
-    body: params
+    body: params,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }
+  }).then(async (res) => {
+    return await res.text()
   })
 }
 

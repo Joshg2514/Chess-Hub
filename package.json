@@ -32,10 +32,10 @@
     "node": ">=16.8.0"
   },
   "scripts": {
-    "postinstall": "npm run build && tsc api/index.ts && tsc api/discord.ts && tsc api/users.ts && tsc api/index.ts && tsc api/firestore.ts && tsc api/challenges.ts",
+    "postinstall": "npm run build",
     "start-client": "react-scripts start",
-    "start": "node api/index.js",
-    "build": "react-scripts build",
+    "start": "npm run build && node api/index.js",
+    "build": "react-scripts build  && tsc api/index.ts && tsc api/discord.ts && tsc api/users.ts && tsc api/index.ts && tsc api/firestore.ts && tsc api/challenges.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -47,8 +47,11 @@ router.post('/create', async (req: any, res: any) => {
   const from = req.body.from
   const to = req.body.to
   const challenge: ChallengeObj = { from, to, accepted: false }
-  await addChallengeToDB(challenge)
-  res.send("Challenge created")
+  await addChallengeToDB(challenge).then(() => {
+    res.send("Challenge sent!")
+  }).catch((error) => {
+    res.send(error)
+  })
 })
 
 module.exports = router;

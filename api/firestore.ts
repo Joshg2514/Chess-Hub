@@ -54,11 +54,18 @@ export const getUsersByClubFromDB = async (clubId: string): Promise<UserObj[]> =
   })
 }
 
-export const addChallengeToDB = async (challenge: ChallengeObj) => {
+export const addChallengeToDB = async (challenge: ChallengeObj): Promise<void> => {
   const snapshot = await db.collection('challenges').where('to', '==', challenge.to).where('from', '==', challenge.from).get()
   if (snapshot.docs.length === 0) {
     await db.collection('challenges').add(challenge)
   }
+  return new Promise((resolve, reject) => {
+    if (snapshot.docs.length === 0) {
+      resolve()
+    } else {
+      reject("You have already challenged this user.")
+    }
+  })
 }
 
 export const acceptChallenge = async (from: string, to: string) => {
