@@ -23,6 +23,18 @@ const MAX_CHALLENGES = 5;
 const MAX_LEADERBOARD_SIZE = 10;
 const MAX_GAMES = 5;
 
+const sortMembers = (members: UserObj[]): UserObj[] => {
+    const sortedMembers = members?.filter((member) => member.rating !== undefined).sort((m1, m2) => m2.rating!! - m1.rating!!)
+    let currRank = 1;
+    for (let i = 0; i < sortedMembers?.length; i++) {
+        if (i > 0 && sortedMembers[i - 1].rating!! > sortedMembers[i].rating!!) {
+            currRank = i + 1;
+        }
+        sortedMembers[i].rank = currRank
+    }
+    return sortedMembers
+}
+
 export default function HomeScreen(props: UserProps) {
 
     const { user } = props
@@ -48,7 +60,7 @@ export default function HomeScreen(props: UserProps) {
             })
             if (user.club) {
                 getClubMembers(user.club).then(res => {
-                    setMembers(res)
+                    setMembers(sortMembers(res))
                 }).catch(e => {
                     setMembers([])
                 })
@@ -113,7 +125,7 @@ export default function HomeScreen(props: UserProps) {
                     <div id={"columns-container"}>
                         <div className={"column"}>
                             <div className={"column-item"}>
-                                <LeaderboardWidget leaderboard={members?.filter((member) => member.rating !== undefined).sort((m1, m2) => m2.rating!! - m1.rating!!)} user={user} />
+                                <LeaderboardWidget leaderboard={members} user={user} />
                             </div>
                         </div>
                         <div style={{ width: 32, height: 16 }} />

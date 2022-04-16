@@ -12,8 +12,8 @@ export default function YourGamesWidget(props: { opponents: UserObj[] | undefine
                 <h4>
                     Your Games
                 </h4>
-                <div style={{ flex: 1 }} />
-                <span className={"widget-header-link"}>{"More \u203A\u203A"}</span>
+                {/* <div style={{ flex: 1 }} />
+                <span className={"widget-header-link"}>{"More \u203A\u203A"}</span> */}
             </div>
             {
                 opponents ?

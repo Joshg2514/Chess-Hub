@@ -12,17 +12,19 @@ export default function LeaderboardWidget(props: { leaderboard: UserObj[] | unde
                 <h4>
                     Leaderboard
                 </h4>
-                <div style={{ flex: 1 }} />
-                <span className={"widget-header-link"}>{"More \u203A\u203A"}</span>
+                {/* <div style={{ flex: 1 }} />
+                <span className={"widget-header-link"}>{"More \u203A\u203A"}</span> */}
             </div>
             {leaderboard ? (<>
                 {
                     leaderboard.map((player, index) => (
                         <div className={equals(user, player) ? "widget-item-highlight" : "widget-item"} key={index}>
-                            <div style={{ flex: 1 }}><span className={"home-leaderboard-number"}>{index + 1}</span></div>
+                            <div style={{ flex: 1 }}><span className={"home-leaderboard-number"}>{player.rank}</span></div>
                             <img src={player.imageUrl || require("../images/account.png")} id={"account-icon"} style={{ width: 24, height: 24 }} />
                             <div style={{ width: 16 }} />
                             <div style={{ flex: 10 }}>{player.name}</div>
+                            <div style={{ width: 16 }} />
+                            <div style={{ flex: 1 }}><span className={"home-leaderboard-number"}>{player.rating}</span></div>
                         </div>))
                 }
                 {/* {(user && !leaderboard.some((player) => {
