@@ -8,7 +8,7 @@ export default function GameOfTheDay(props: { id: string }) {
         <h4 id={"widget-header"}>
             Game Of The Day
         </h4>
-        <iframe id={id} allowTransparency={true} frameBorder={0} style={{ width: "100%", border: "none", height: 500 }} src={`//www.chess.com/emboard?id=${id}`}></iframe>
+        <iframe id={id} allowTransparency={true} frameBorder={0} style={{ width: "100%", border: "none", height: 500 }} src={`https://lichess.org/embed/${id}?theme=auto&bg=auto`}></iframe>
     </>)
 
 }
