@@ -34,7 +34,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "start-client": "react-scripts start",
-    "start": "npm run build && node api/index.js",
+    "start": "node api/index.js",
     "build": "react-scripts build  && tsc api/index.ts && tsc api/discord.ts && tsc api/users.ts && tsc api/index.ts && tsc api/firestore.ts && tsc api/challenges.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
