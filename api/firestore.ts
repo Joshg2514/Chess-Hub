@@ -76,12 +76,15 @@ export const acceptChallenge = async (from: string, to: string) => {
   }
 }
 
-export const removeChallenge = async (from: string, to: string) => {
+export const removeChallenge = async (from: string, to: string): Promise<boolean> => {
   const snapshot = await db.collection('challenges').where('to', '==', to).where('from', '==', from).where('accepted', '==', true).get()
   if (snapshot.docs) {
     snapshot.docs.forEach((doc: any) => {
       doc.ref.delete()
     });
+    return true;
+  } else {
+    return false
   }
 }
 

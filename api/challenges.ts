@@ -27,14 +27,16 @@ router.post('/submit-score', async (req: any, res: any) => {
   const player1 = JSON.parse(req.body.player1)
   const player2 = JSON.parse(req.body.player2)
   const winner = req.body.winner
-  if (winner === '1' || winner === '2') {
-    const result = eloRating.calculate(player1.rating, player2.rating, winner === '1');
-    player1.rating = result.playerRating
-    player2.rating = result.opponentRating
-    await updateUserInDB(player1)
-    await updateUserInDB(player2)
+  const challengeRemoved = await removeChallenge(player2.id, player1.id)
+  if (challengeRemoved) {
+    if (winner === '1' || winner === '2') {
+      const result = eloRating.calculate(player1.rating, player2.rating, winner === '1');
+      player1.rating = result.playerRating
+      player2.rating = result.opponentRating
+      await updateUserInDB(player1)
+      await updateUserInDB(player2)
+    }
   }
-  await removeChallenge(player2.id, player1.id)
 })
 
 router.get('/opponents/:id', async (req: any, res: any) => {
