@@ -110,3 +110,11 @@ export async function getClubMembers(clubId: string): Promise<UserObj[]> {
     throw 'Error retrieving club members'
   }
 }
+
+export async function getGameOfTheDay(): Promise<string> {
+  return fetch('/api/gotd').then((res) => {
+    return res.text()
+  }).catch((err) => {
+    return err
+  })
+}

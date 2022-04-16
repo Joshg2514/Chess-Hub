@@ -14,7 +14,7 @@ import {
 } from "../models/DummyData"
 import YourGamesWidget from "../components/YourGamesWidget";
 import UserProps from "./ScreensProps";
-import { acceptChallenge, createChallenge, getChallengers, getChallengesToUser, getClubMembers, getOpponents, getUser, submitScore } from "../api";
+import { acceptChallenge, createChallenge, getChallengers, getChallengesToUser, getClubMembers, getGameOfTheDay, getOpponents, getUser, submitScore } from "../api";
 import { UserObj } from "../models/UserObj";
 import SendChallengeWidget from "../components/SendChallengeWidget";
 import SubmitScoreWidget from "../components/SubmitScoreWidget";
@@ -40,6 +40,7 @@ export default function HomeScreen(props: UserProps) {
     const { user } = props
 
     const [members, setMembers] = useState<UserObj[] | undefined>(undefined)
+    const [gameOfTheDay, setGameOfTheDay] = useState<string | undefined>(undefined)
     const [challengers, setChallengers] = useState<UserObj[] | undefined>(undefined)
     const [opponents, setOpponents] = useState<UserObj[] | undefined>(undefined)
     const [showChallengeDialog, setShowChallengeDialog] = useState<boolean>(false)
@@ -67,6 +68,14 @@ export default function HomeScreen(props: UserProps) {
             }
         }
     }, [user?.id])
+
+    useEffect(() => {
+        getGameOfTheDay().then((res) => {
+            setGameOfTheDay(res)
+        }).catch((err) => {
+            setGameOfTheDay(undefined)
+        })
+    }, [])
 
     const handleCreateChallenge = (id: string | undefined) => {
         if (user?.id && id) {
@@ -138,9 +147,11 @@ export default function HomeScreen(props: UserProps) {
                                 <YourGamesWidget opponents={opponents} handleSubmitScore={handleOpenSubmitScoreDialog} />
                             </div>
                             <div style={{ height: 16 }} />
-                            <div className={"column-item"} style={{ borderRadius: "8px 8px 0px 0px" }}>
-                                <GameOfTheDay url={"https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"} />
-                            </div>
+                            {gameOfTheDay && (
+                                <div className={"column-item"} style={{ borderRadius: 8 }}>
+                                    <GameOfTheDay url={gameOfTheDay} />
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className={"side-padding"} />

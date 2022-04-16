@@ -11,8 +11,8 @@ export default function ChallengesWidget(props: { challengers: UserObj[] | undef
                 <h4>
                     Challenges
                 </h4>
-                <div style={{ flex: 1 }} />
-                <span className={"widget-header-link"}>{"More \u203A\u203A"}</span>
+                {/* <div style={{ flex: 1 }} />
+                <span className={"widget-header-link"}>{"More \u203A\u203A"}</span> */}
             </div>
             {
                 challengers ?

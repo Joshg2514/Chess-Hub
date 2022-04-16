@@ -1,3 +1,5 @@
+import { getGameOfTheDay } from "./firestore";
+
 export { }
 const path = require("path");
 const express = require("express");
@@ -24,21 +26,12 @@ app.use('/api/challenges', require('./challenges'));
 
 app.use('/api/users', require('./users'))
 
-app.post("/api/update", function (req: any, res: any) {
-  /*
-  var num1 = Number(req.body.num1);
-  var num2 = Number(req.body.num2);
-
-  try {
-    if (!checkIfInt(num1, num2)) {
-      res.send("Invalid Numbers");
-    } else {
-      updateRanking.loadFile(req, res, num1, num2);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-  */
+app.get("/api/gotd", function (req: any, res: any) {
+  return getGameOfTheDay().then((response) => {
+    res.send(response)
+  }).catch((err) => {
+    res.status(400).send(err)
+  })
 });
 
 app.use((req: any, res: any, next: any) => {
@@ -46,7 +39,7 @@ app.use((req: any, res: any, next: any) => {
 });
 
 // start express server on port 3000
-app.listen(process.env.PORT || 3000 , () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("server started on port 3000");
 });
 

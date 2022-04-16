@@ -114,3 +114,15 @@ export const getOpponentsOfUserFromDB = async (id: string): Promise<string[]> =>
     }
   })
 }
+
+export const getGameOfTheDay = async (): Promise<string> => {
+  const ref = db.collection('gameOfTheDay').doc('currentGame');
+  const doc = await ref.get();
+  return new Promise((resolve, reject) => {
+    if (doc.exists) {
+      resolve(doc.data().url)
+    } else {
+      reject(`Error retrieving game of the day.`)
+    }
+  })
+}
