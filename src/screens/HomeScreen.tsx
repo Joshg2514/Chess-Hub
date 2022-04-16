@@ -137,19 +137,19 @@ export default function HomeScreen(props: UserProps) {
                                 <LeaderboardWidget leaderboard={members} user={user} />
                             </div>
                         </div>
-                        <div style={{ width: 32, height: 16 }} />
+                        <div style={{ width: 32, height: 16 }} className="desktop-divider" />
                         <div className={"column"}>
                             <div className={"column-item"}>
                                 <ChallengesWidget challengers={challengers} setShowDialog={setShowChallengeDialog} handleAcceptChallenge={handleAcceptChallenge} />
                             </div>
-                            <div style={{ height: 16 }} />
+                            <div style={{ height: 16 }} className="desktop-divider" />
                             <div className={"column-item"}>
                                 <YourGamesWidget opponents={opponents} handleSubmitScore={handleOpenSubmitScoreDialog} />
                             </div>
-                            <div style={{ height: 16 }} />
+                            <div style={{ height: 16 }} className="desktop-divider" />
                             {gameOfTheDay && (
-                                <div className={"column-item"} style={{ borderRadius: 8 }}>
-                                    <GameOfTheDay url={gameOfTheDay} />
+                                <div className={"column-item"}>
+                                    <GameOfTheDay id={gameOfTheDay} />
                                 </div>
                             )}
                         </div>

@@ -7,7 +7,6 @@
 /* GLOBAL STYLES */
 #main-container {
     height: 100vh;
-    width: 100vw;
     background-color: whitesmoke;
 }
 
@@ -18,14 +17,12 @@
 
 .column-item {
     background-color: white;
-    border-radius: 8px;
     overflow: hidden;
 }
 
 #columns-container {
     flex: 1;
     display: flex;
-    padding: 16px;
     background-color: whitesmoke;
 }
 
@@ -121,8 +118,34 @@
     display: flex;
 }
 
+@media screen and (min-width: 601px) {
+    .column {
+        flex: 1;
+    }
+
+    #columns-container {
+        flex-direction: row;
+        min-width: 600px;
+        padding: 16px;
+    }
+
+    .column-item {
+        border-radius: 8px;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .side-padding {
+        display: none;
+    }
+
+    #columns-container {
+        flex-direction: column;
+        min-width: 280px;
+        padding: 0px;
+    }
+
+    .desktop-divider {
         display: none;
     }
 }

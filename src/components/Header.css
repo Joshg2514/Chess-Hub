@@ -61,7 +61,7 @@
 
 @media screen and (max-width: 600px) {
     #header-content {
-        min-width: 280px;
+        min-width: 200px;
     }
 
     #header-main-text {

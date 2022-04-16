@@ -7,7 +7,7 @@ export default function ChallengesWidget(props: { challengers: UserObj[] | undef
 
     return (
         <>
-            <div id={"widget-header"} style={{ display: 'flex', alignItems: 'center' }}>
+            <div id={"widget-header"}>
                 <h4>
                     Challenges
                 </h4>

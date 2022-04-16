@@ -120,7 +120,7 @@ export const getGameOfTheDay = async (): Promise<string> => {
   const doc = await ref.get();
   return new Promise((resolve, reject) => {
     if (doc.exists) {
-      resolve(doc.data().url)
+      resolve(doc.data().id)
     } else {
       reject(`Error retrieving game of the day.`)
     }
