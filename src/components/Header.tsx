@@ -23,7 +23,7 @@ export default function Header(props: UserProps) {
             <div id={"header-content"}>
                 <Link to={"/"} style={{ textDecoration: 'none' }}><Logo /></Link>
                 <div style={{ flex: 1 }} />
-                <span style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => setShowDropdown(prevState => !prevState)}>
+                <span id="header-profile" onClick={() => setShowDropdown(prevState => !prevState)}>
                     <h4>{props.user?.name || "?"}</h4>
                     <div style={{ width: 8 }} />
                     <div style={{ position: "relative" }}>

@@ -28,6 +28,13 @@
     opacity: 70%;
 }
 
+#header-profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    min-width: 80px;
+}
+
 .header-dropdown {
     position: absolute;
     background-color: white;
