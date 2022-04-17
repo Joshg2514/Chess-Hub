@@ -21,7 +21,7 @@ export default function SendChallengeWidget(props: { members: UserObj[], handleC
                       <img src={member.imageUrl || require("../images/account.png")} id={"account-icon"} />
                       <div style={{ width: 16 }} />
                       {member.name}
-                      <div style={{ flex: 1 }} />
+                      <div style={{ flex: 1, minWidth: 16 }} />
                       <div className={"primary-button"} onClick={() => {
                         if (response === null) {
                           handleCreateChallenge(member.id)
