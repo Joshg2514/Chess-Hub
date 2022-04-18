@@ -81,9 +81,7 @@ export async function getChallengers(id: string, limit: number = 100): Promise<U
 
 export async function getOpponents(id: string, limit: number = 100): Promise<UserObj[]> {
   const opponentIds = await getOpponentsOfUser(id)
-  console.log(opponentIds)
   const opponents = await Promise.all(opponentIds.slice(0, limit).map(async id => await getUser(id)))
-  console.log(opponents)
   if (opponents) {
     return opponents
   } else {

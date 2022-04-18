@@ -55,15 +55,19 @@ export const getUsersByClubFromDB = async (clubId: string): Promise<UserObj[]> =
 }
 
 export const addChallengeToDB = async (challenge: ChallengeObj): Promise<void> => {
-  const snapshot = await db.collection('challenges').where('to', '==', challenge.to).where('from', '==', challenge.from).get()
-  if (snapshot.docs.length === 0) {
+  const challengesFromUser = await db.collection('challenges').where('to', '==', challenge.to).where('from', '==', challenge.from).get();
+  const challengesToUser = await db.collection('challenges').where('to', '==', challenge.from).where('from', '==', challenge.to).get();
+  const challengeExists = challengesToUser.docs.length !== 0 || challengesFromUser.docs.length !== 0
+  if (!challengeExists) {
     await db.collection('challenges').add(challenge)
   }
   return new Promise((resolve, reject) => {
-    if (snapshot.docs.length === 0) {
+    if (!challengeExists) {
       resolve()
-    } else {
+    } else if (challengesFromUser.docs.length === 0) {
       reject("You have already challenged this user.")
+    } else if (challengesToUser.docs.length === 0) {
+      reject("This user has already challenged you.")
     }
   })
 }
@@ -77,9 +81,11 @@ export const acceptChallenge = async (from: string, to: string) => {
 }
 
 export const removeChallenge = async (from: string, to: string): Promise<boolean> => {
-  const snapshot = await db.collection('challenges').where('to', '==', to).where('from', '==', from).where('accepted', '==', true).get()
-  if (snapshot.docs) {
-    snapshot.docs.forEach((doc: any) => {
+  const snapshot1 = await db.collection('challenges').where('to', '==', to).where('from', '==', from).where('accepted', '==', true).get()
+  const snapshot2 = await db.collection('challenges').where('to', '==', from).where('from', '==', to).where('accepted', '==', true).get()
+  const combinedSnapshot = (!(snapshot1?.docs) && !(snapshot2?.docs)) ? undefined : [...(snapshot1?.docs || []), ...(snapshot2.docs || [])]
+  if (combinedSnapshot) {
+    combinedSnapshot.forEach((doc: any) => {
       doc.ref.delete()
     });
     return true;

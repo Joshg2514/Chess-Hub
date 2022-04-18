@@ -28,9 +28,6 @@ export default function LeaderboardWidget(props: { leaderboard: UserObj[] | unde
                         </div>))
                 }
                 {/* {(user && !leaderboard.some((player) => {
-                    console.log("Comparing...")
-                    console.log(player)
-                    console.log(user)
                     equals(user, player)
                 })) &&
                     <div className={"widget-item-highlight"}>
